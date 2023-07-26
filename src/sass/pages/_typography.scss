@@ -3,7 +3,9 @@ h1 {
   font-weight: $font-black;
   font-size: 150px;
   color: $color-light;
-  letter-spacing: 10px;
+  letter-spacing: 130px;
+  padding: 0;
+  margin: 0;
 }
 
 h2 {
@@ -11,4 +13,13 @@ h2 {
   font-weight: $font-bold;
   font-size: 30px;
   color: $color-light; 
+  letter-spacing: 15px;
+}
+
+h3 {
+  font-family: $font-family;
+  font-weight: $font-bold;
+  font-size: 30px;
+  color: $color-light; 
+  letter-spacing: 15px;
 }
