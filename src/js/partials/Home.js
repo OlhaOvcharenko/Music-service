@@ -16,7 +16,7 @@ class Home {
     thisHome.dom.wrapper = element;
   
     element.innerHTML = generatedHTML;
-    console.log(generatedHTML);
+    //console.log(generatedHTML);
   }
 }
 

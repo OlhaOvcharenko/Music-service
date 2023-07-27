@@ -3,18 +3,11 @@ import Home from './partials/Home.js';
 
 const app = {
 
-  initHome: function() {
-
-    const thisApp = this;
-
-    thisApp.homeContainer = document.querySelector(select.containerOf.home);
-    thisApp.home = new Home(thisApp.homeContainer);
-  },
-
   initPages: function() {
     const thisApp = this;
 
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
+    console.log(thisApp.pages);
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
     const idFromHash = window.location.hash.replace('#/', '');
@@ -29,7 +22,7 @@ const app = {
         
       }
     }
-    console.log('pageMatchingHash2', pageMatchingHash);
+    //console.log('pageMatchingHash2', pageMatchingHash);
     thisApp.activatePage(pageMatchingHash);
     
     for(let link of thisApp.navLinks){
@@ -37,11 +30,11 @@ const app = {
 
         const clickedElement = event.currentTarget;
         event.preventDefault();
-        console.log('clickedElement', clickedElement);
+        //console.log('clickedElement', clickedElement);
 
         // get page ID from href attr.
         const id = clickedElement.getAttribute('href').replace('#', '');
-        console.log(clickedElement,'clickedElement');
+        //console.log(clickedElement,'clickedElement');
         // run thisApp.activatePage() with ID
         thisApp.activatePage(id);
         //console.log(id, 'id');
@@ -67,6 +60,14 @@ const app = {
         link.getAttribute('href') == '#' + pageId
       );
     }
+  },
+
+  initHome: function() {
+
+    const thisApp = this;
+
+    thisApp.homeContainer = document.querySelector(select.containerOf.home);
+    thisApp.home = new Home(thisApp.homeContainer);
   },
 
   init: function() {
