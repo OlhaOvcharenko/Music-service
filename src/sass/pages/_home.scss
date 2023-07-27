@@ -1,4 +1,60 @@
-.playlist-title {
-    display: block;
-    text-align: center;
+.home_content {
+  padding-top: 50px;
+}
+.play-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 35%;
+  padding-bottom: 70px;
+}
+
+.song-title {
+  padding-left: 50px;
+}
+
+.footer {
+  background-image: url('/images/subscribe.jpg');
+  background-position: center center;
+  background-size: cover;
+}
+
+.footer-title {
+  position: relative;
+  text-align: center;
+  font-size: 70px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.footer-content h1 {
+  letter-spacing: 0;
+  font-size: 60px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-join {
+  position: relative;
+}
+.btn-join button{
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  display: inline-block;
+  min-width: 315px;
+  min-height: 130px;
+  margin: 24px auto 0 auto;
+  padding: 12px;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  color: $color-light;
+  background-color:  #CF383E;
+  border-color: none;
+  font-size: 30px;
 }

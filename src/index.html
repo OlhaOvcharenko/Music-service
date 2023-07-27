@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Music-service</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/green-audio-player.min.css">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
@@ -38,15 +39,66 @@
   <script id="template-homepage-widget" type="text/x-handlebars-template">
     <div class="home_content">
       <div class="playlist">
-        <div class="playlist-title">
-          <h2>DISCOVER</h2>
-          <h3>Give it a try!</h3>
+        <div class="play-box">
+          <div class="song-title">
+            <h3>JOHN DOE - Where did my love go?</h3>
+          </div>
+          <div class="play-song">
+            <audio>
+              <source src="vendor/songs/At_The_Top_David_Renda.mp3">
+            </audio>
+          </div>
+        </div>
+        <div class="play-box">
+          <div class="song-title">
+            <h3>OMD - Walking On The Milky way</h3>
+          </div>
+          <div class="play-song">
+            <audio>
+              <source src="vendor/songs/At_The_Top_David_Renda.mp3">
+            </audio>
+          </div>
+        </div>
+        <div class="play-box">
+          <div class="song-title">
+            <h3>The Rolling Stones - Angie</h3>
+          </div>
+          <div class="play-song">
+            <audio>
+              <source src="vendor/songs/At_The_Top_David_Renda.mp3">
+            </audio>
+          </div>
+        </div>
+        <div class="play-box">
+          <div class="song-title">
+            <h3>Garbage - The World is Not Enough</h3>
+          </div>
+          <div class="play-song">
+            <audio>
+              <source src="vendor/songs/At_The_Top_David_Renda.mp3">
+            </audio>
+          </div>
+        </div>
+        <h2 class="footer-title">SUBSCRIBE<b>NOW</b></h2>
+      </div>
+
+      <div class="footer">
+        <div class="footer-content">
+          <div class="btn-join">
+            <button>join now</button>
+          </div>
+          <div class="footer-box">
+            <h1 class="name">Dean</h1>
+            <h1 class="surname">Hen<span>son</span></h1>
+            <img src="/images/artist.jpg">
+          </div>
         </div>
       </div>
     </div>
   </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+  <script src="vendor/green-audio-player.min.js"></script>
   <script src="js/app.js" type="module"></script>
   </body>
 </html>

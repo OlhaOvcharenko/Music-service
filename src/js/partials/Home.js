@@ -1,10 +1,11 @@
-import {templates} from '../settings.js';
+import {templates, select} from '../settings.js';
 
 class Home {
   constructor(element){
     const thisHome = this;
     
     thisHome.render(element);
+    thisHome.initGreenPlayer();
   }
   
   render(element) {
@@ -17,6 +18,14 @@ class Home {
   
     element.innerHTML = generatedHTML;
     //console.log(generatedHTML);
+  }
+
+  initGreenPlayer(){
+    // eslint-disable-next-line no-undef
+    GreenAudioPlayer.init({
+      selector: '.play-song', // inits Green Audio Player on each audio container that has class "player"
+      stopOthersOnPlay: true,
+   });
   }
 }
 
