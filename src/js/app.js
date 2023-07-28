@@ -84,21 +84,23 @@ const app = {
   initData: function() {
     const thisApp = this;
 
-    thisApp.data = {};
+    thisApp.data =  {};
 
     const url = settings.db.url + '/' + settings.db.songs;
     fetch(url)
       .then(function (rawResponse) {
         return rawResponse.json();
+        
       })
       .then(function (parsedResponse) {
-        console.log('parsedResponse', parsedResponse);
+        //console.log('parsedResponse', parsedResponse);
+        /*save parsedResponce as thisApp.data.proucts*/
         thisApp.data.songs = parsedResponse;
-        app.initPlaylist(); // Move this inside the second .then() block
-      })
-      .catch(function (error) {
-        console.error('Error fetching playlist data:', error);
+        /*execute initMenu method*/
+        app.initPlaylist();
       });
+
+    console.log('thisApp.data', JSON.stringify(thisApp.data));
   },
 
   init: function() {

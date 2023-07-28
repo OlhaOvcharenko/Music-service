@@ -31,7 +31,7 @@ export const templates = {
 export const settings = {
 
   db: {
-    url: '//3131',
+    url: '//localhost:3131',
     songs: 'songs',
   }
 };
