@@ -1,4 +1,4 @@
-import {templates, select} from '../settings.js';
+import {templates} from '../settings.js';
 
 class Home {
   constructor(element){
@@ -25,7 +25,7 @@ class Home {
     GreenAudioPlayer.init({
       selector: '.play-song', // inits Green Audio Player on each audio container that has class "player"
       stopOthersOnPlay: true,
-   });
+    });
   }
 }
 
