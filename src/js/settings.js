@@ -27,3 +27,11 @@ export const classNames = {
 export const templates = {
   pageHome: Handlebars.compile(document.querySelector(select.templateOf.pageHome).innerHTML),
 };
+
+export const settings = {
+
+  db: {
+    url: '//3131',
+    songs: 'songs',
+  }
+};

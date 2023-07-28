@@ -24,14 +24,15 @@
 }
 
 .footer-title {
-    position: absolute;
-    top: 0; /* Adjust the value to move the title higher or lower */
-    left: 50%;
-    transform: translate(-50%, -50%);
-      h2 {
-        font-size: 70px;
-        font-weight: $font-semibold;
-      }
+  position: absolute;
+  top: 0; /* Adjust the value to move the title higher or lower */
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  h2 {
+    font-size: 70px;
+    font-weight: $font-semibold;
+  }
 }
 
 .footer-box{
@@ -88,19 +89,22 @@
   position: absolute;
   padding-top: 220px;
   z-index: 2;
-    h1 {
-      padding-left: 110px;
-      letter-spacing: 10px;
-      font-size: 60px;
-      letter-spacing: 15px;
-      font-weight: $font-black;
-    }
-    .surname {
-      padding-left: 150px;
-    }
-    span {
-      color: $color-red;
-    }
+
+  h1 {
+    padding-left: 110px;
+    letter-spacing: 10px;
+    font-size: 60px;
+    letter-spacing: 15px;
+    font-weight: $font-black;
+  }
+
+  .surname {
+    padding-left: 150px;
+  }
+
+  span {
+    color: $color-red;
+  }
 }
 
 .details {
@@ -113,6 +117,7 @@
     color: $color-grey;
     line-height: 0;
   }
+
   h3 {
     letter-spacing: 10px;
     font-size: 25px;

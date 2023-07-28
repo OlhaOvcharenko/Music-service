@@ -1,4 +1,4 @@
-import {select, classNames} from './settings.js';
+import {select, classNames,settings} from './settings.js';
 import Home from './partials/Home.js';
 
 const app = {
@@ -69,9 +69,42 @@ const app = {
     thisApp.homeContainer = document.querySelector(select.containerOf.home);
     thisApp.home = new Home(thisApp.homeContainer);
   },
+  
+  data: {},
+
+  initPlaylist: function () {
+    const thisApp = this;
+    console.log('thisApp.data:', thisApp.data);
+
+    for (let songData of thisApp.data.songs) {
+      new Home(songData.id, songData);
+    }
+  },
+
+  initData: function() {
+    const thisApp = this;
+
+    thisApp.data = {};
+
+    const url = settings.db.url + '/' + settings.db.songs;
+    fetch(url)
+      .then(function (rawResponse) {
+        return rawResponse.json();
+      })
+      .then(function (parsedResponse) {
+        console.log('parsedResponse', parsedResponse);
+        thisApp.data.songs = parsedResponse;
+        app.initPlaylist(); // Move this inside the second .then() block
+      })
+      .catch(function (error) {
+        console.error('Error fetching playlist data:', error);
+      });
+  },
 
   init: function() {
     const thisApp = this;
+
+    thisApp.initData();
     thisApp.initPages();
     thisApp.initHome();
   },
