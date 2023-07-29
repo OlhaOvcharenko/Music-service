@@ -3,30 +3,15 @@ import Home from './partials/Home.js';
 
 const app = {
 
-  initPlaylist: function () {
-    const thisApp = this;
-    console.log('thisApp.data:', thisApp.data);
+  
+  initHome: function() {
 
-    for (let songData of thisApp.data.songs) {
-      new Home(thisApp, songData.id, songData); 
-    }
-  },
-
-  initData: function() {
     const thisApp = this;
 
-    thisApp.data =  {};
-
-    const url = settings.db.url + '/' + settings.db.songs;
-    fetch(url)
-      .then(function (rawResponse) {
-        return rawResponse.json();
-      })
-      .then(function (parsedResponse) {
-        thisApp.data.songs = parsedResponse;
-        app.initPlaylist(); 
-        console.log('thisApp.data', JSON.stringify(thisApp.data));
-      });
+    // Get the home container and the corresponding data
+    thisApp.homeContainer = document.querySelector(select.containerOf.home);
+    thisApp.home = new Home(thisApp.homeContainer);
+    
   },
 
   initPages: function() {
@@ -88,12 +73,30 @@ const app = {
     }
   },
 
-  initHome: function() {
+  initPlaylist: function () {
+    const thisApp = this;
+    console.log('thisApp.data:', thisApp.data);
 
+    for (let songData of thisApp.data.songs) {
+      new Home(thisApp.data.songs[songData]); 
+    }
+  },
+
+  initData: function() {
     const thisApp = this;
 
-    thisApp.homeContainer = document.querySelector(select.containerOf.home);
-    thisApp.home = new Home(thisApp.homeContainer);
+    thisApp.data =  {};
+
+    const url = settings.db.url + '/' + settings.db.songs;
+    fetch(url)
+      .then(function (rawResponse) {
+        return rawResponse.json();
+      })
+      .then(function (parsedResponse) {
+        thisApp.data.songs = parsedResponse;
+        app.initPlaylist(); 
+        console.log('thisApp.data', JSON.stringify(thisApp.data));
+      });
   },
   
   init: function() {

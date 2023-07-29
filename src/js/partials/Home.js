@@ -11,14 +11,18 @@ class Home {
   
   render(element) {
     const thisHome = this;
-  
-    const generatedHTML = templates.pageHome(thisHome.data);
-  
+
+    const generatedHTML = templates.pageHome();
+
     thisHome.dom = {};
     thisHome.dom.wrapper = element;
-  
+
     element.innerHTML = generatedHTML;
-    //console.log(generatedHTML);
+
+    thisHome.data.songs.forEach((songData) => {
+      const songTemplate = templates.singleSong(songData);
+      homeContainer.innerHTML += songTemplate;
+    });
   }
 
   initGreenPlayer(){

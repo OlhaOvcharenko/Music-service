@@ -36,8 +36,7 @@
       </section>
     </div>
 
-    <script id="template-homepage-widget" type="text/x-handlebars-template">
-      <div class="home_content">
+    <script id="template-singlesong-widget" type="text/x-handlebars-template">
 
         <div class="playlist">
           <div class="play-box">
@@ -46,7 +45,7 @@
             </div>
             <div class="play-song">
               <audio>
-                {{filename}}
+                <source src="/songs/{{filename}}">
               </audio>
             </div>
             <div class="song-details no-spacing">
@@ -55,20 +54,24 @@
           </div>
         </div>
 
-        <div class="footer">
-          <div class="footer-title">
+    </script>
+    
+    <script id="template-homepage-widget" type="text/x-handlebars-template">
+      <div class="home_content">
+        <div class="subscribe">
+          <div class="subscribe-title">
             <h2>SUBSCRIBE<b>NOW</b></h2>
           </div>
-          <div class="footer-content">
+          <div class="subscribe-content">
             <div class="btn-join">
               <button>join now</button>
             </div>
-            <div class="footer-box">
+            <div class="subscribe-box">
               <div class="singer">
                 <h1>Dean</h1>
                 <h1 class="surname">Hen<span>son</span></h1>
               </div>
-              <div class="footer-img">
+              <div class="subscribe-img">
                 <img src="/images/artist.jpg">
               </div>
             </div>
@@ -84,7 +87,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
     <script src="vendor/green-audio-player.min.js"></script>
-    <script src="/js/script.js"></script>
     <script src="js/app.js" type="module"></script>
   </body>
 </html>

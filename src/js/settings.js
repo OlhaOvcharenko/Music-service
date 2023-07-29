@@ -2,12 +2,13 @@ export const select = {
   
   templateOf: {
     pageHome: '#template-homepage-widget',
+    singleSong: '#template-singlesong-widget',
   },
 
   containerOf: {
     home:'.home-wrapper',
     pages: '#pages',
-    subscribe: '.footer',
+    subscribe: '.subscribe',
   },
 
   nav: {
@@ -27,6 +28,7 @@ export const classNames = {
 
 export const templates = {
   pageHome: Handlebars.compile(document.querySelector(select.templateOf.pageHome).innerHTML),
+  singleSong: Handlebars.compile(document.querySelector(select.templateOf.singleSong).innerHTML),
 };
 
 export const settings = {

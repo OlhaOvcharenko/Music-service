@@ -6,7 +6,7 @@
   padding: 70px;
 }
 
-.footer {
+.subscribe {
   height: 920px;
   position: relative;
   background-image: url('/images/subscribe.jpg');
@@ -15,7 +15,7 @@
   margin-top: 100px;
 }
 
-.footer-title {
+.subscribe-title {
   position: absolute;
   top: 0; /* Adjust the value to move the title higher or lower */
   left: 50%;
@@ -27,12 +27,12 @@
   }
 }
 
-.footer-box{
+.subscribe-box{
   margin-top: 160px;
   margin-left: 30px;
 }
 
-.footer-content {
+.subscribe-content {
   display: flex;
   justify-content: center;
   padding-left: 20%;
@@ -65,7 +65,7 @@
   letter-spacing: 3px;
 }
 
-.footer-img {
+.subscribe-img {
   position: relative;
   max-width: 660px;
   height: 470px;
