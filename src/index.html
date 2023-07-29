@@ -21,68 +21,70 @@
           <a href="#search">SEARCH</a>
           <a href="#discover">DISCOVER</a>
         </div>
+     </div>
+   </header>
+
+    <div id="pages">
+      <section id="home">
+        <div class="home-wrapper container"></div>
+      </section>
+      <section id="search">
+        <div class="search container"></div>
+      </section>
+      <section id="discover">
+        <div class="discover container"></div>
+      </section>
     </div>
-  </header>
 
-  <div id="pages">
-    <section id="home">
-      <div class="home-wrapper container"></div>
-    </section>
-    <section id="search">
-      <div class="search container"></div>
-    </section>
-    <section id="discover">
-      <div class="discover container"></div>
-    </section>
-  </div>
+    <script id="template-homepage-widget" type="text/x-handlebars-template">
+      <div class="home_content">
 
-  <script id="template-homepage-widget" type="text/x-handlebars-template">
-    <div class="home_content">
-      <div class="playlist">
-        <div class="play-box">
-          <div class="song-title">
-            <h3>{{title}}</h3>
-          </div>
-          <div class="play-song">
-            <audio>
-              <source src="{{ filename }}" type="audio/mpeg">
-            </audio>
-          </div>
-          <div class="song-details">
-            <p>Categories: {{ categories.join ', ' }} + {{ ranking }}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer">
-        <div class="footer-title">
-          <h2>SUBSCRIBE<b>NOW</b></h2>
-        </div>
-        <div class="footer-content">
-          <div class="btn-join">
-            <button>join now</button>
-          </div>
-          <div class="footer-box">
-            <div class="singer">
-              <h1>Dean</h1>
-              <h1 class="surname">Hen<span>son</span></h1>
+        <div class="playlist">
+          <div class="play-box">
+            <div class="song-title no-spacing">
+              <h3>{{title}}</h3>
             </div>
-            <div class="footer-img">
-              <img src="/images/artist.jpg">
+            <div class="play-song">
+              <audio>
+                {{filename}}
+              </audio>
+            </div>
+            <div class="song-details no-spacing">
+              <p>{{categories}}</p>
             </div>
           </div>
         </div>
-        <div class="details">
-          <h2>NEW ALBUM</h2>
-          <h3>Available only for subscribers</h3>
-        </div>
-      </div>
-    </div>
-  </script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
-  <script src="vendor/green-audio-player.min.js"></script>
-  <script src="/js/script.js"></script>
-  <script src="js/app.js" type="module"></script>
+        <div class="footer">
+          <div class="footer-title">
+            <h2>SUBSCRIBE<b>NOW</b></h2>
+          </div>
+          <div class="footer-content">
+            <div class="btn-join">
+              <button>join now</button>
+            </div>
+            <div class="footer-box">
+              <div class="singer">
+                <h1>Dean</h1>
+                <h1 class="surname">Hen<span>son</span></h1>
+              </div>
+              <div class="footer-img">
+                <img src="/images/artist.jpg">
+              </div>
+            </div>
+          </div>
+          <div class="details">
+            <h2>NEW ALBUM</h2>
+            <h3>Available only for subscribers</h3>
+          </div>
+        </div>
+
+      </div>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+    <script src="vendor/green-audio-player.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="js/app.js" type="module"></script>
   </body>
 </html>

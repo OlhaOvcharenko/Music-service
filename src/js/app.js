@@ -3,6 +3,32 @@ import Home from './partials/Home.js';
 
 const app = {
 
+  initPlaylist: function () {
+    const thisApp = this;
+    console.log('thisApp.data:', thisApp.data);
+
+    for (let songData of thisApp.data.songs) {
+      new Home(thisApp, songData.id, songData); 
+    }
+  },
+
+  initData: function() {
+    const thisApp = this;
+
+    thisApp.data =  {};
+
+    const url = settings.db.url + '/' + settings.db.songs;
+    fetch(url)
+      .then(function (rawResponse) {
+        return rawResponse.json();
+      })
+      .then(function (parsedResponse) {
+        thisApp.data.songs = parsedResponse;
+        app.initPlaylist(); 
+        console.log('thisApp.data', JSON.stringify(thisApp.data));
+      });
+  },
+
   initPages: function() {
     const thisApp = this;
 
@@ -70,39 +96,6 @@ const app = {
     thisApp.home = new Home(thisApp.homeContainer);
   },
   
-  data: {},
-
-  initPlaylist: function () {
-    const thisApp = this;
-    console.log('thisApp.data:', thisApp.data);
-
-    for (let songData of thisApp.data.songs) {
-      new Home(songData.id, songData);
-    }
-  },
-
-  initData: function() {
-    const thisApp = this;
-
-    thisApp.data =  {};
-
-    const url = settings.db.url + '/' + settings.db.songs;
-    fetch(url)
-      .then(function (rawResponse) {
-        return rawResponse.json();
-        
-      })
-      .then(function (parsedResponse) {
-        //console.log('parsedResponse', parsedResponse);
-        /*save parsedResponce as thisApp.data.proucts*/
-        thisApp.data.songs = parsedResponse;
-        /*execute initMenu method*/
-        app.initPlaylist();
-      });
-
-    console.log('thisApp.data', JSON.stringify(thisApp.data));
-  },
-
   init: function() {
     const thisApp = this;
 

@@ -1,9 +1,10 @@
 import {templates} from '../settings.js';
 
 class Home {
-  constructor(element){
+  constructor(element,data){
     const thisHome = this;
     
+    thisHome.data = data;
     thisHome.render(element);
     thisHome.initGreenPlayer();
   }
@@ -11,7 +12,7 @@ class Home {
   render(element) {
     const thisHome = this;
   
-    const generatedHTML = templates.pageHome();
+    const generatedHTML = templates.pageHome(thisHome.data);
   
     thisHome.dom = {};
     thisHome.dom.wrapper = element;

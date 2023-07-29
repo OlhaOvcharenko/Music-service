@@ -7,6 +7,7 @@ export const select = {
   containerOf: {
     home:'.home-wrapper',
     pages: '#pages',
+    subscribe: '.footer',
   },
 
   nav: {
