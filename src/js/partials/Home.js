@@ -25,19 +25,16 @@ class Home {
         thisHome.data.songs = parsedResponse;
         thisHome.createPlaylist();
         console.log('thisHome.data', JSON.stringify(thisHome.data.songs));
-      });
+      })
   }
   
   createPlaylist(){
     const thisHome = this;
-
-    for (const songData of thisHome.data.songs) {
-
-      const generatedSongHTML = templates.singleSong(songData); 
-      const playlistContainer = document.querySelector(select.containerOf.playlist);
+    const playlistContainer = document.querySelector(select.containerOf.playlist);
+  
+    for (const song of thisHome.data.songs) {
+      const generatedSongHTML = templates.singleSong(song);
       playlistContainer.insertAdjacentHTML('beforeend', generatedSongHTML);
-      console.log(playlistContainer);
-
     }
   }
 

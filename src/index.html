@@ -45,11 +45,12 @@
           </div>
           <div class="play-song">
             <audio>
-              <source src="songs/{{ filename }}"  type="audio/mpeg">
+              <source src="{{settings.db.url}}/{{filename}}" type="audio/mpeg">
             </audio>
           </div>
           <div class="song-details no-spacing">
             <p>Categories: {{categories}}</p>
+            <p>#{{ranking}} in the ranking</p>
           </div>
         </div>
       </div>
