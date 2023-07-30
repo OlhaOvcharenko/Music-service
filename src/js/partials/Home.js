@@ -1,14 +1,46 @@
-import {templates} from '../settings.js';
+import {templates, settings, select} from '../settings.js';
 
 class Home {
-  constructor(element,data){
+  constructor(element){
     const thisHome = this;
-    
-    thisHome.data = data;
+
     thisHome.render(element);
+
+    thisHome.getSongData();
     thisHome.initGreenPlayer();
+  
+  }
+
+  getSongData() {
+    const thisHome = this;
+
+    thisHome.data =  {};
+
+    const url = settings.db.url + '/' + settings.db.songs;
+    fetch(url)
+      .then(function (rawResponse) {
+        return rawResponse.json();
+      })
+      .then(function (parsedResponse) {
+        thisHome.data.songs = parsedResponse;
+        thisHome.createPlaylist();
+        console.log('thisHome.data', JSON.stringify(thisHome.data.songs));
+      })
   }
   
+  createPlaylist(){
+    const thisHome = this;
+
+    for (const songData of thisHome.data.songs) {
+
+      const generatedSongHTML = templates.singleSong(songData); 
+      const playlistContainer = document.querySelector(select.containerOf.playlist);
+      playlistContainer.insertAdjacentHTML('beforeend', generatedSongHTML);
+      console.log(playlistContainer);
+
+    }
+  }
+
   render(element) {
     const thisHome = this;
 
@@ -19,16 +51,14 @@ class Home {
 
     element.innerHTML = generatedHTML;
 
-    thisHome.data.songs.forEach((songData) => {
-      const songTemplate = templates.singleSong(songData);
-      homeContainer.innerHTML += songTemplate;
-    });
+    //console.log('HTML', generatedHTML);
   }
+
 
   initGreenPlayer(){
     // eslint-disable-next-line no-undef
     GreenAudioPlayer.init({
-      selector: '.play-song', // inits Green Audio Player on each audio container that has class "player"
+      selector: '.play-box .play-song', 
       stopOthersOnPlay: true,
     });
   }

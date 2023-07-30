@@ -9,6 +9,7 @@ export const select = {
     home:'.home-wrapper',
     pages: '#pages',
     subscribe: '.subscribe',
+    playlist: '.playlist-wrapper',
   },
 
   nav: {
