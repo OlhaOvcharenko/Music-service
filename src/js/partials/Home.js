@@ -25,7 +25,7 @@ class Home {
         thisHome.data.songs = parsedResponse;
         thisHome.createPlaylist();
         console.log('thisHome.data', JSON.stringify(thisHome.data.songs));
-      })
+      });
   }
   
   createPlaylist(){

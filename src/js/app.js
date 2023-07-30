@@ -1,4 +1,4 @@
-import {select, classNames,settings} from './settings.js';
+import {select, classNames} from './settings.js';
 import Home from './partials/Home.js';
 
 const app = {
