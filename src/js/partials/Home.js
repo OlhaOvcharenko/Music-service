@@ -11,12 +11,14 @@ class Home {
   
   }
 
+
+
   getSongData() {
     const thisHome = this;
 
     thisHome.data =  {};
 
-    const url = settings.db.url + '/' + settings.db.songs;
+    const url = '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : '') + '/' + 'songs';
     fetch(url)
       .then(function (rawResponse) {
         return rawResponse.json();
@@ -25,18 +27,45 @@ class Home {
         thisHome.data.songs = parsedResponse;
         thisHome.createPlaylist();
         console.log('thisHome.data', JSON.stringify(thisHome.data.songs));
-      })
+      });
   }
-  
+
+  createAudioElement(song) {
+    const audioElement = document.createElement('audio');
+    audioElement.controls = true;
+    audioElement.src = `songs/${song.filename}`;
+
+    return audioElement;
+  }
+
   createPlaylist(){
     const thisHome = this;
-    const playlistContainer = document.querySelector(select.containerOf.playlist);
-  
+
+    // for every category (song)...
     for (const song of thisHome.data.songs) {
-      const generatedSongHTML = templates.singleSong(song);
+      // Create a new object representing the song with selected properties
+      const songObject = {
+        id: song.id,
+        title: song.title,
+        author: song.author,
+        filename:`songs/${song.filename}`,
+        categories: song.categories,
+        ranking: song.ranking,
+      };
+
+      const generatedSongHTML = templates.singleSong(songObject); 
+      const playlistContainer = document.querySelector(select.containerOf.playlist);
       playlistContainer.insertAdjacentHTML('beforeend', generatedSongHTML);
+      console.log(playlistContainer);
+
+      const containerOfAudio = document.querySelector(select.containerOf.song);
+      
+      const audioElement = thisHome.createAudioElement(song);
+      playlistContainer.appendChild(audioElement);
     }
   }
+  
+
 
   render(element) {
     const thisHome = this;
