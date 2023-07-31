@@ -4,7 +4,7 @@
 
 
 .play-box {
-  margin-left: 40%;
+  margin-left: 35%;
   padding: 10px;
 }
 
@@ -12,10 +12,15 @@
   display: flex;
 
   p {
-    padding: 20px;
+    text-align: center;
+    padding-right: 70px;
+    padding-left: 15px;
   }
 }
 
+.green-audio-player .slider .gap-progress .pin {
+  background-color: #CF383E;
+}
 .subscribe {
   height: 920px;
   position: relative;
