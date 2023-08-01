@@ -1,5 +1,6 @@
 import {select, classNames} from './settings.js';
 import Home from './partials/Home.js';
+import Search from './partials/Search.js';
 
 const app = {
 
@@ -11,6 +12,16 @@ const app = {
     // Get the home container and the corresponding data
     thisApp.homeContainer = document.querySelector(select.containerOf.home);
     thisApp.home = new Home(thisApp.homeContainer);
+    
+  },
+
+  initSearch: function() {
+
+    const thisApp = this;
+
+    // Get the home container and the corresponding data
+    thisApp.searchContainer = document.querySelector(select.containerOf.search);
+    thisApp.search = new Search(thisApp.searchContainer);
     
   },
 
@@ -79,6 +90,7 @@ const app = {
 
     thisApp.initPages();
     thisApp.initHome();
+    thisApp.initSearch();
   },
 
 };

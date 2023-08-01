@@ -1,4 +1,4 @@
-import {templates, settings, select} from '../settings.js';
+import {templates,select} from '../settings.js';
 
 class Home {
   constructor(element){
@@ -24,9 +24,9 @@ class Home {
         thisHome.data.songs = parsedResponse;
         thisHome.createPlaylist();
         thisHome.initGreenPlayer();
-        console.log('thisHome.data', JSON.stringify(thisHome.data.songs));
+        //console.log('thisHome.data', JSON.stringify(thisHome.data.songs));
       });
- }
+  }
 
   createAudioElement(song) {
     const audioElement = document.createElement('audio');
@@ -54,7 +54,7 @@ class Home {
       const generatedSongHTML = templates.singleSong(songObject); 
       const playlistContainer = document.querySelector(select.containerOf.playlist);
       playlistContainer.insertAdjacentHTML('beforeend', generatedSongHTML);
-      console.log(playlistContainer);
+      //console.log(playlistContainer);
 
       const containerOfAudio = document.getElementById(song.id);
       

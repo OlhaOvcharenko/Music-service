@@ -1,0 +1,60 @@
+
+.section-title {
+  text-align: center;
+  color: $color-grey;
+  font-size: 40px;
+}
+
+.search-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.search-name h3 {
+  padding: 0 25px 0 25px;
+  color: $color-grey;
+  font-size: 22px;
+  letter-spacing: 5px;
+  margin-top: 10px;
+}
+
+.btn {
+  position: relative;
+  margin: 0 0 0 8%;
+  button {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    display: inline-block;
+    min-width: 130px;
+    min-height: 60px;
+    margin: 24px auto 0 auto;
+    padding: 12px;
+    border-radius: 7px;
+    text-align: center;
+    text-decoration: none;
+    color: $color-light;
+    background-color: #CF383E;
+    border-color: none;
+    border-style: none;
+    font-size: 20px;
+    font-style: $font-family;
+    letter-spacing: 3px;
+  }
+
+}
+
+input {
+  width: 355px;
+  height: 60px;
+  border-radius: 7px;
+}
+
+footer {
+  text-align: center;
+  margin-top: 150px;
+   .rights {
+    height: 920px;
+   }
+}

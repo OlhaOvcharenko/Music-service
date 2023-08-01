@@ -16,23 +16,25 @@
           <h1 class="main-title">TASTE</h1>
           <h2 class="header-subtitle">ENGAGE<br>IN<br>ART</h2>
         </div>
-        <div class="main-nav">
-          <a href="#home">HOME</a>
-          <a href="#search">SEARCH</a>
-          <a href="#discover">DISCOVER</a>
-        </div>
      </div>
+     <div class="main-nav">
+      <a href="#home">HOME</a>
+      <a href="#search">SEARCH</a>
+      <a href="#discover">DISCOVER</a>
+    </div>
    </header>
+
+
 
     <div id="pages">
       <section id="home">
         <div class="home-wrapper container"></div>
       </section>
       <section id="search">
-        <div class="search container"></div>
+        <div class="search-wrapper container"></div>
       </section>
       <section id="discover">
-        <div class="discover container"></div>
+        <div class="discover-wrapper container"></div>
       </section>
     </div>
 
@@ -63,7 +65,7 @@
             <h2>SUBSCRIBE<b>NOW</b></h2>
           </div>
           <div class="subscribe-content">
-            <div class="btn-join">
+            <div class="btn-home">
               <button>join now</button>
             </div>
             <div class="subscribe-box">
@@ -81,8 +83,30 @@
             <h3>Available only for subscribers</h3>
           </div>
         </div>
-
       </div>
+      <span class="footer-content">All rights reserved</span>
+    </script>
+
+    <script id="template-search-page" type="text/x-handlebars-template">
+      <section class="section-page">
+        <h2 class="section-title">SEARCH</h2>
+        <form>
+          <div class="search-name">
+            <h3>Name</h3>
+            <input id="song-category"type="text">
+            <h3>Category</h3>
+            <input id="song-category"type="text">
+          </div>
+          <div class="btn">
+            <button id="search">search</button>
+          </div>
+        </form>
+     </section>
+     <footer>
+      <div class="rights">
+           <span class="footer-content">All rights reserved</span>
+      </div>
+    </footer>
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
