@@ -15,6 +15,7 @@ export const select = {
     playlist: '.playlist-wrapper',
     song: '.play-song',
     buttonSearch: '.btn',
+    searchPlaylist: '.search-playlist-wrapper',
   },
 
   nav: {

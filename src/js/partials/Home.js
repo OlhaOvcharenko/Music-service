@@ -1,16 +1,22 @@
 import {templates,select} from '../settings.js';
+import Search from './Search.js';
 
 class Home {
-  constructor(element){
+  constructor(data) {
     const thisHome = this;
 
-    thisHome.render(element);
+    thisHome.data = data;
 
-    thisHome.getSongData();
-  
+    thisHome.render();
+    thisHome.createPlaylist();
+    thisHome.initGreenPlayer();
+    //thisHome.getSongData();
+
+    //console.log(data)
+
   }
 
-  getSongData() {
+  /*getSongData() {
     const thisHome = this;
 
     thisHome.data =  {};
@@ -21,12 +27,12 @@ class Home {
         return rawResponse.json();
       })
       .then(function (parsedResponse) {
-        thisHome.data.songs = parsedResponse;
+        thisHome.allSongs = parsedResponse;
         thisHome.createPlaylist();
         thisHome.initGreenPlayer();
         //console.log('thisHome.data', JSON.stringify(thisHome.data.songs));
       });
-  }
+  }*/
 
   createAudioElement(song) {
     const audioElement = document.createElement('audio');
@@ -40,9 +46,9 @@ class Home {
     const thisHome = this;
 
     // for every category (song)...
-    for (const song of thisHome.data.songs) {
+    for (const song of thisHome.data) {
       // Create a new object representing the song with selected properties
-      const songObject = {
+      const songsObject = {
         id: song.id,
         title: song.title,
         author: song.author,
@@ -51,7 +57,7 @@ class Home {
         ranking: song.ranking,
       };
 
-      const generatedSongHTML = templates.singleSong(songObject); 
+      const generatedSongHTML = templates.singleSong(songsObject); 
       const playlistContainer = document.querySelector(select.containerOf.playlist);
       playlistContainer.insertAdjacentHTML('beforeend', generatedSongHTML);
       //console.log(playlistContainer);
@@ -60,20 +66,17 @@ class Home {
       
       const audioElement = thisHome.createAudioElement(song);
       containerOfAudio.appendChild(audioElement);
+
     }
+
   }
-  
 
-
-  render(element) {
-    const thisHome = this;
+  render() {
 
     const generatedHTML = templates.pageHome();
+    const homeContainer = document.querySelector(select.containerOf.home);
 
-    thisHome.dom = {};
-    thisHome.dom.wrapper = element;
-
-    element.innerHTML = generatedHTML;
+    homeContainer.innerHTML+= generatedHTML;
 
     //console.log('HTML', generatedHTML);
   }

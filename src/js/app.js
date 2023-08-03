@@ -5,7 +5,7 @@ import Search from './partials/Search.js';
 const app = {
 
   
-  initHome: function() {
+  /*initHome: function() {
 
     const thisApp = this;
 
@@ -13,17 +13,16 @@ const app = {
     thisApp.homeContainer = document.querySelector(select.containerOf.home);
     thisApp.home = new Home(thisApp.homeContainer);
     
-  },
+  },*/
 
-  initSearch: function() {
+ /* initSearch: function() {
 
     const thisApp = this;
 
-    // Get the home container and the corresponding data
     thisApp.searchContainer = document.querySelector(select.containerOf.search);
     thisApp.search = new Search(thisApp.searchContainer);
     
-  },
+  },*/
 
   initPages: function() {
     const thisApp = this;
@@ -83,14 +82,42 @@ const app = {
       );
     }
   },
+
+  /*initPlaylist(){
+    const thisApp = this;
+    // console.log('thisApp.data:', thisApp.data);
+    for (let song in thisApp.data.allSongs) {
+      new Home(thisApp.data.allSongs[song]);
+    }
+
+  },*/
+
+  initData: function() {
+    const thisApp = this;
+
+    thisApp.data =  {};
+
+    const url = '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : '') + '/' + 'songs';
+    fetch(url)
+      .then(function (rawResponse) {
+        return rawResponse.json();
+      })
+      .then(function (parsedResponse) {
+        thisApp.data = parsedResponse;
+
+        new Home(thisApp.data);
+        new Search(thisApp.data);
+        
+        
+        thisApp.initPages();
+        //console.log('thisHome.data', JSON.stringify(thisHome.data.songs));
+      });
+  },
   
 
   init: function() {
     const thisApp = this;
-
-    thisApp.initPages();
-    thisApp.initHome();
-    thisApp.initSearch();
+    thisApp.initData();
   },
 
 };

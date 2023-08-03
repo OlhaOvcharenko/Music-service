@@ -11,6 +11,9 @@
   justify-content: center;
 }
 
+form {
+  padding-bottom: 100px;
+}
 .search-name h3 {
   padding: 0 25px 0 25px;
   color: $color-grey;
@@ -22,6 +25,7 @@
 .btn {
   position: relative;
   margin: 0 0 0 8%;
+
   button {
     position: absolute;
     top: 50%;
@@ -60,7 +64,8 @@ input {
 footer {
   text-align: center;
   margin-top: 150px;
-   .rights {
+
+  .rights {
     height: 920px;
-   }
+  }
 }

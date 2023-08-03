@@ -1,56 +1,73 @@
-import { templates} from '../settings.js';
+import {select, templates} from '../settings.js';
 
 class Search {
 
-  constructor(element,){
+  constructor(data){
     const thisSearch = this;
-    thisSearch.render(element);
-    thisSearch.songsSearch();
+
+    thisSearch.data = data;
+
+    thisSearch.render();
+    thisSearch.createPlaylist();
+    //console.log(data);
+   
   }
 
+  createAudioElement(song) {
+    const audioElement = document.createElement('audio');
 
- songsSearch(){
+    audioElement.src = `songs/${song.filename}`;
 
-  const searchButton = document.getElementById("search");
+    return audioElement;
+  }
 
-  searchButton.addEventListener("click", function (event) {
-    event.preventDefault();
+  createPlaylist(){
+    const thisSearch = this;
 
-    let searchInputValue = document.getElementById("song-name").value;
-    const filteredSongs = []; // Change from object to array
-
-    for (const song of thisHome.data.songs) {
+    // for every category (song)...
+    for (const song of thisSearch.data) {
       // Create a new object representing the song with selected properties
-      const songObject = {
+      const songsObject = {
         id: song.id,
         title: song.title,
         author: song.author,
-        filename: `songs/${song.filename}`,
+        filename:`songs/${song.filename}`,
         categories: song.categories,
         ranking: song.ranking,
       };
 
-      // Use strict equality === or loose equality == for comparison
-      if (searchInputValue === songObject.title) {
-        filteredSongs.push(songObject); // Change from filteredSongs[song] to filteredSongs.push(...)
-      }
+      const generatedSongHTML = templates.singleSong(songsObject); 
+      const playlistContainer = document.querySelector(select.containerOf.searchPlaylist);
+      playlistContainer.insertAdjacentHTML('beforeend', generatedSongHTML);
+      //console.log(playlistContainer);
+
+      const containerOfAudio = document.getElementById(song.id);
+      
+      const audioElement = thisSearch.createAudioElement(song);
+      containerOfAudio.appendChild(audioElement);
+
+    
+
     }
 
-    console.log(filteredSongs);
-  });
-}
-
-  render(element) {
-    const thisSearch = this;
-
+  }
+  render() {
     const generatedHTML = templates.searchPage();
+    const searchContainer = document.querySelector(select.containerOf.search);
 
-    thisSearch.dom = {};
-    thisSearch.dom.wrapper = element;
+    searchContainer.innerHTML+= generatedHTML;
 
-    element.innerHTML = generatedHTML;
 
    // console.log('HTML', generatedHTML);
+  }
+
+  initGreenPlayer(){
+    // eslint-disable-next-line no-undef
+    GreenAudioPlayer.init({
+      selector: '.play-song', 
+      stopOthersOnPlay: true,
+      
+    });
   }
 
 
