@@ -15,7 +15,7 @@ const app = {
     
   },*/
 
- /* initSearch: function() {
+  /* initSearch: function() {
 
     const thisApp = this;
 
@@ -95,7 +95,7 @@ const app = {
   initData: function() {
     const thisApp = this;
 
-    thisApp.data =  {};
+    thisApp.songs =  {};
 
     const url = '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : '') + '/' + 'songs';
     fetch(url)
@@ -103,10 +103,10 @@ const app = {
         return rawResponse.json();
       })
       .then(function (parsedResponse) {
-        thisApp.data = parsedResponse;
+        thisApp.songs = parsedResponse;
 
-        new Home(thisApp.data);
-        new Search(thisApp.data);
+        new Home(thisApp.songs);
+        new Search(thisApp.songs);
         
         
         thisApp.initPages();

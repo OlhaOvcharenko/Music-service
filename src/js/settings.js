@@ -4,6 +4,7 @@ export const select = {
     pageHome: '#template-homepage-widget',
     singleSong: '#template-singlesong-widget',
     searchPage:'#template-search-page',
+    categories: '#search_select',
   },
 
   containerOf: {
@@ -16,6 +17,7 @@ export const select = {
     song: '.play-song',
     buttonSearch: '.btn',
     searchPlaylist: '.search-playlist-wrapper',
+
   },
 
   nav: {

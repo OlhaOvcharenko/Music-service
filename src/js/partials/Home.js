@@ -1,11 +1,10 @@
 import {templates,select} from '../settings.js';
-import Search from './Search.js';
 
 class Home {
-  constructor(data) {
+  constructor(songs) {
     const thisHome = this;
 
-    thisHome.data = data;
+    thisHome.songs = songs;
 
     thisHome.render();
     thisHome.createPlaylist();
@@ -46,7 +45,7 @@ class Home {
     const thisHome = this;
 
     // for every category (song)...
-    for (const song of thisHome.data) {
+    for (const song of thisHome.songs) {
       // Create a new object representing the song with selected properties
       const songsObject = {
         id: song.id,

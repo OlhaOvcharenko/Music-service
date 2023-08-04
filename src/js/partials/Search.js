@@ -2,10 +2,10 @@ import {select, templates} from '../settings.js';
 
 class Search {
 
-  constructor(data){
+  constructor(songs){
     const thisSearch = this;
 
-    thisSearch.data = data;
+    thisSearch.songs = songs;
 
     thisSearch.render();
     thisSearch.createPlaylist();
@@ -23,9 +23,10 @@ class Search {
 
   createPlaylist(){
     const thisSearch = this;
+    const categoryList = [];
 
     // for every category (song)...
-    for (const song of thisSearch.data) {
+    for (const song of thisSearch.songs) {
       // Create a new object representing the song with selected properties
       const songsObject = {
         id: song.id,
@@ -46,11 +47,34 @@ class Search {
       const audioElement = thisSearch.createAudioElement(song);
       containerOfAudio.appendChild(audioElement);
 
-    
 
+      for (const category of song.categories) {
+        if (!categoryList.includes(category)) {
+          categoryList.push(category);
+        }
+      }
     }
 
+    thisSearch.createCategoriesList(categoryList);
   }
+
+
+ createCategoriesList(categories) {
+    const selectElement = document.getElementById('search_select');
+    selectElement.innerHTML = ''; // Clear existing options
+
+    const defaultOption = document.createElement('option');
+    defaultOption.value = 'clean';
+    selectElement.appendChild(defaultOption);
+  
+    for (const category of categories) {
+      const optionElement = document.createElement('option');
+      optionElement.value = category;
+      optionElement.textContent = category;
+      selectElement.appendChild(optionElement);
+    }
+  }
+
   render() {
     const generatedHTML = templates.searchPage();
     const searchContainer = document.querySelector(select.containerOf.search);
