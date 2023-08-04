@@ -1,4 +1,4 @@
-import {select, settings, templates} from '../settings.js';
+import {select,templates} from '../settings.js';
 
 class Search {
 
@@ -9,8 +9,9 @@ class Search {
     thisSearch.categoryList = [];
 
     thisSearch.render();
-    thisSearch.createPlaylist();
+    //thisSearch.createPlaylist();
     thisSearch.getCategory();
+    thisSearch.filterSongs();
     //console.log(data);
    
   }
@@ -21,42 +22,6 @@ class Search {
     audioElement.src = `songs/${song.filename}`;
 
     return audioElement;
-  }
-
-  createPlaylist(){
-    const thisSearch = this;
-   
-    // for every category (song)...
-    for (const song of thisSearch.songs) {
-      // Create a new object representing the song with selected properties
-      const songsObject = {
-        id: song.id,
-        title: song.title,
-        author: song.author,
-        filename:`songs/${song.filename}`,
-        categories: song.categories,
-        ranking: song.ranking,
-      };
-
-      const generatedSongHTML = templates.singleSong(songsObject); 
-      const playlistWrapper = document.querySelector(select.containerOf.searchPlaylist);
-      
-      playlistWrapper.insertAdjacentHTML('beforeend', generatedSongHTML);
-    
-      const containerOfAudio = document.getElementById(song.id);
-      const audioElement = thisSearch.createAudioElement(song);
-      containerOfAudio.appendChild(audioElement);
-      console.log(containerOfAudio);
-
-
-      /*for (const category of song.categories) {
-        if (!thisSearch.categoryList.includes(category)) {
-          thisSearch.categoryList.push(category);
-        }
-      }*/
-    }
-
-    //thisSearch.createCategoriesList(thisSearch.categoryList);
   }
 
   getCategory(){
@@ -93,13 +58,52 @@ class Search {
 
   filterSongs(){
     const thisSearch = this;
-    const button = document.querySelector(select.containerOf.buttonSearch);
+    thisSearch.button = document.querySelector('.btn');
 
-    button.addEventListener('submit', function(event){
+    thisSearch.button.addEventListener('click', function(event){
       event.preventDefault(); // Prevent form submission
-    
+
+      const inputName = document.getElementById('song-category').value;
+      const selectCategory = document.getElementById('search_select').value;
+  
+      // Filter songs based on input values
+      const filteredSongs = thisSearch.songs.filter(song => {
+        const isInName = inputName !== '' && (song.title.includes(inputName));
+        const isInCategory = selectCategory !== 'clean' && song.categories.includes(selectCategory);
+        return (isInName && isInCategory) || (isInName && selectCategory === 'clean') || (isInCategory && inputName === '');
+      });
+  
+      thisSearch.updatePlaylist(filteredSongs);
     });
 
+  }
+
+  updatePlaylist(filteredSongs) {
+    const thisSearch = this;
+    const playlistWrapper = document.querySelector(select.containerOf.searchPlaylist);
+    playlistWrapper.innerHTML = ''; // Clear existing playlist
+  
+    for (const song of filteredSongs) {
+      const songsObject = {
+        id: song.id,
+        title: song.title,
+        author: song.author,
+        filename:`songs/${song.filename}`,
+        categories: song.categories,
+        ranking: song.ranking,
+      };
+  
+      const generatedSongHTML = templates.singleSong(songsObject); 
+      playlistWrapper.insertAdjacentHTML('beforeend', generatedSongHTML);
+  
+      const containerOfAudio = document.getElementById(song.id);
+      const audioElement = thisSearch.createAudioElement(song);
+      containerOfAudio.appendChild(audioElement);
+
+      
+      thisSearch.initGreenPlayer(audioElement);
+    }
+  
   }
 
   render() {
@@ -109,7 +113,7 @@ class Search {
     searchContainer.innerHTML+= generatedHTML;
 
 
-   // console.log('HTML', generatedHTML);
+    // console.log('HTML', generatedHTML);
   }
 
   initGreenPlayer(){
