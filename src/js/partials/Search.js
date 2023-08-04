@@ -1,4 +1,4 @@
-import {select, templates} from '../settings.js';
+import {select, settings, templates} from '../settings.js';
 
 class Search {
 
@@ -6,9 +6,11 @@ class Search {
     const thisSearch = this;
 
     thisSearch.songs = songs;
+    thisSearch.categoryList = [];
 
     thisSearch.render();
     thisSearch.createPlaylist();
+    thisSearch.getCategory();
     //console.log(data);
    
   }
@@ -23,8 +25,7 @@ class Search {
 
   createPlaylist(){
     const thisSearch = this;
-    const categoryList = [];
-
+   
     // for every category (song)...
     for (const song of thisSearch.songs) {
       // Create a new object representing the song with selected properties
@@ -38,41 +39,67 @@ class Search {
       };
 
       const generatedSongHTML = templates.singleSong(songsObject); 
-      const playlistContainer = document.querySelector(select.containerOf.searchPlaylist);
-      playlistContainer.insertAdjacentHTML('beforeend', generatedSongHTML);
-      //console.log(playlistContainer);
-
-      const containerOfAudio = document.getElementById(song.id);
+      const playlistWrapper = document.querySelector(select.containerOf.searchPlaylist);
       
+      playlistWrapper.insertAdjacentHTML('beforeend', generatedSongHTML);
+    
+      const containerOfAudio = document.getElementById(song.id);
       const audioElement = thisSearch.createAudioElement(song);
       containerOfAudio.appendChild(audioElement);
+      console.log(containerOfAudio);
 
 
-      for (const category of song.categories) {
-        if (!categoryList.includes(category)) {
-          categoryList.push(category);
+      /*for (const category of song.categories) {
+        if (!thisSearch.categoryList.includes(category)) {
+          thisSearch.categoryList.push(category);
+        }
+      }*/
+    }
+
+    //thisSearch.createCategoriesList(thisSearch.categoryList);
+  }
+
+  getCategory(){
+    const thisSearch = this;
+
+    for (const song of thisSearch.songs) {
+      const categoriesOfSong = song.categories; // Assuming each song object has a "categories" property
+  
+      for (const category of categoriesOfSong) {
+        if (!thisSearch.categoryList.includes(category)) {
+          thisSearch.categoryList.push(category);
         }
       }
     }
-
-    thisSearch.createCategoriesList(categoryList);
+  
+    thisSearch.createCategoriesList(thisSearch.categoryList);
   }
 
-
- createCategoriesList(categories) {
+  createCategoriesList(categories) {
     const selectElement = document.getElementById('search_select');
     selectElement.innerHTML = ''; // Clear existing options
 
     const defaultOption = document.createElement('option');
     defaultOption.value = 'clean';
     selectElement.appendChild(defaultOption);
-  
+    
     for (const category of categories) {
       const optionElement = document.createElement('option');
       optionElement.value = category;
       optionElement.textContent = category;
       selectElement.appendChild(optionElement);
     }
+  }
+
+  filterSongs(){
+    const thisSearch = this;
+    const button = document.querySelector(select.containerOf.buttonSearch);
+
+    button.addEventListener('submit', function(event){
+      event.preventDefault(); // Prevent form submission
+    
+    });
+
   }
 
   render() {
