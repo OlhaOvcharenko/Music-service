@@ -1,4 +1,5 @@
 import {templates,select} from '../settings.js';
+import Playlist from './Playlist.js';
 
 class Home {
   constructor(songs) {
@@ -7,33 +8,15 @@ class Home {
     thisHome.songs = songs;
 
     thisHome.render();
-    thisHome.createPlaylist();
-    thisHome.initGreenPlayer();
-    //thisHome.getSongData();
+    //thisHome.createPlaylist();
+    //thisHome.initGreenPlayer();
 
-    //console.log(data)
+    // Create an instance of the Playlist class with the songs array
+    thisHome.playlistInstance = new Playlist(thisHome.songs);
 
   }
 
-  /*getSongData() {
-    const thisHome = this;
-
-    thisHome.data =  {};
-
-    const url = '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : '') + '/' + 'songs';
-    fetch(url)
-      .then(function (rawResponse) {
-        return rawResponse.json();
-      })
-      .then(function (parsedResponse) {
-        thisHome.allSongs = parsedResponse;
-        thisHome.createPlaylist();
-        thisHome.initGreenPlayer();
-        //console.log('thisHome.data', JSON.stringify(thisHome.data.songs));
-      });
-  }*/
-
-  createAudioElement(song) {
+  /*createAudioElement(song) {
     const audioElement = document.createElement('audio');
 
     audioElement.src = `songs/${song.filename}`;
@@ -56,6 +39,7 @@ class Home {
         ranking: song.ranking,
       };
 
+
       const generatedSongHTML = templates.singleSong(songsObject); 
       const playlistContainer = document.querySelector(select.containerOf.playlist);
       playlistContainer.insertAdjacentHTML('beforeend', generatedSongHTML);
@@ -68,7 +52,7 @@ class Home {
 
     }
 
-  }
+  }*/
 
   render() {
 

@@ -16,13 +16,6 @@ class Search {
    
   }
 
-  createAudioElement(song) {
-    const audioElement = document.createElement('audio');
-
-    audioElement.src = `songs/${song.filename}`;
-
-    return audioElement;
-  }
 
   getCategory(){
     const thisSearch = this;
@@ -58,25 +51,35 @@ class Search {
 
   filterSongs(){
     const thisSearch = this;
-    thisSearch.button = document.querySelector('.btn');
+    const button = document.querySelector('.btn');
 
-    thisSearch.button.addEventListener('click', function(event){
+    button.addEventListener('click', function(event){
       event.preventDefault(); // Prevent form submission
 
-      const inputName = document.getElementById('song-category').value;
-      const selectCategory = document.getElementById('search_select').value;
+      const input = document.querySelector(select.containerOf.input);
+      const searchData = input.value.toLowerCase();
+      const selectedCategory = document.getElementById('search_select').value;
   
-      // Filter songs based on input values
-      const filteredSongs = thisSearch.songs.filter(song => {
-        const isInName = inputName !== '' && (song.title.includes(inputName));
-        const isInCategory = selectCategory !== 'clean' && song.categories.includes(selectCategory);
-        return (isInName && isInCategory) || (isInName && selectCategory === 'clean') || (isInCategory && inputName === '');
+      // Filter songs based on search criteria
+      const filteredSongs = thisSearch.songs.filter((song) => {
+        const isMatchTitle = searchData === '' || song.title.toLowerCase().includes(searchData);
+        const isMatchCategory = selectedCategory === 'clean' || song.categories.includes(selectedCategory);
+
+        return isMatchTitle && isMatchCategory;
       });
-  
+
+
       thisSearch.updatePlaylist(filteredSongs);
     });
-
   }
+  /*createAudioElement(song) {
+    const audioElement = document.createElement('audio');
+
+    audioElement.src = `songs/${song.filename}`;
+
+    return audioElement;
+
+  }*/
 
   updatePlaylist(filteredSongs) {
     const thisSearch = this;
@@ -96,15 +99,17 @@ class Search {
       const generatedSongHTML = templates.singleSong(songsObject); 
       playlistWrapper.insertAdjacentHTML('beforeend', generatedSongHTML);
   
-      const containerOfAudio = document.getElementById(song.id);
+      /*const containerOfAudio = document.getElementById(song.id);
       const audioElement = thisSearch.createAudioElement(song);
-      containerOfAudio.appendChild(audioElement);
+      containerOfAudio.appendChild(audioElement);*/
 
+      //console.log(containerOfAudio);
       
-      thisSearch.initGreenPlayer(audioElement);
+      thisSearch.initGreenPlayer();
+    
     }
-  
   }
+
 
   render() {
     const generatedHTML = templates.searchPage();

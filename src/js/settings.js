@@ -4,6 +4,7 @@ export const select = {
     pageHome: '#template-homepage-widget',
     singleSong: '#template-singlesong-widget',
     searchPage:'#template-search-page',
+    discoverPage:'#template-discover-page',
     categories: '#search_select',
   },
 
@@ -17,6 +18,9 @@ export const select = {
     song: '.play-song',
     buttonSearch: '.btn',
     searchPlaylist: '.search-playlist-wrapper',
+    discoverPlaylist: '.discover-playlist-wrapper',
+    songOfDiscoverPlaylist: 'discover-playlist-wrapper .play-song',
+    input: 'input',
 
   },
 
@@ -39,6 +43,7 @@ export const templates = {
   pageHome: Handlebars.compile(document.querySelector(select.templateOf.pageHome).innerHTML),
   singleSong: Handlebars.compile(document.querySelector(select.templateOf.singleSong).innerHTML),
   searchPage: Handlebars.compile(document.querySelector(select.templateOf.searchPage).innerHTML),
+  discoverPage: Handlebars.compile(document.querySelector(select.templateOf.discoverPage).innerHTML),
 };
 
 export const settings = {
