@@ -1,6 +1,4 @@
 import {select,templates} from '../settings.js';
-import Playlist from './Playlist.js';
-
 class Search {
 
   constructor(songs){
@@ -98,7 +96,7 @@ class Search {
           thisSearch.songsHTML = templates.singleSong(thisSearch.songsData); 
           thisSearch.songsHTML = thisSearch.songsHTML.replaceAll('play-song', 'search-song');
           playlistWrapper.innerHTML += thisSearch.songsHTML; 
-          console.log(playlistWrapper.innerHTML)
+          console.log(playlistWrapper.innerHTML);
           const containerOfSong = document.querySelector(select.containerOf.search_song);
           const audioElement = thisSearch.createAudioElement(song);
           containerOfSong.appendChild(audioElement);
