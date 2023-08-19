@@ -1,4 +1,5 @@
 import {select,templates} from '../settings.js';
+import Playlist from './Playlist.js';
 
 class Search {
 
@@ -12,10 +13,12 @@ class Search {
     //thisSearch.createPlaylist();
     thisSearch.getCategory();
     thisSearch.filterSongs();
+    
+    
+
     //console.log(data);
    
   }
-
 
   getCategory(){
     const thisSearch = this;
@@ -51,11 +54,11 @@ class Search {
 
   filterSongs(){
     const thisSearch = this;
-    const button = document.querySelector('.btn');
-
-    button.addEventListener('click', function(event){
+    thisSearch.button = document.querySelector(select.containerOf.buttonSearch);
+  
+    thisSearch.button.addEventListener('click', function(event) {
       event.preventDefault(); // Prevent form submission
-
+  
       const input = document.querySelector(select.containerOf.input);
       const searchData = input.value.toLowerCase();
       const selectedCategory = document.getElementById('search_select').value;
@@ -63,31 +66,45 @@ class Search {
       // Filter songs based on search criteria
       const filteredSongs = thisSearch.songs.filter((song) => {
         const isMatchTitle = searchData === '' || song.title.toLowerCase().includes(searchData);
+        const isMatchAuthor = searchData === '' || song.author.toLowerCase().includes(searchData);
         const isMatchCategory = selectedCategory === 'clean' || song.categories.includes(selectedCategory);
-
-        return isMatchTitle && isMatchCategory;
+  
+        if (searchData !== '' && selectedCategory !== '') {
+          return (isMatchTitle || isMatchAuthor) && isMatchCategory;
+        } else if (searchData !== '') {
+          return isMatchTitle || isMatchAuthor;
+        } else if (selectedCategory !== '') {
+          return isMatchCategory;
+        }
+  
+        return true; // Default case: no filters applied, show all songs
       });
 
 
       thisSearch.updatePlaylist(filteredSongs);
+
+      console.log(filteredSongs)
     });
   }
-  /*createAudioElement(song) {
+
+  createAudioElement(song) {
     const audioElement = document.createElement('audio');
-
+    
     audioElement.src = `songs/${song.filename}`;
-
+    
     return audioElement;
 
-  }*/
+  }
 
   updatePlaylist(filteredSongs) {
     const thisSearch = this;
     const playlistWrapper = document.querySelector(select.containerOf.searchPlaylist);
-    playlistWrapper.innerHTML = ''; // Clear existing playlist
+    //playlistWrapper.innerHTML = ''; // Clear existing playlist
+
+    console.log(playlistWrapper);
   
     for (const song of filteredSongs) {
-      const songsObject = {
+      thisSearch.songsData = {
         id: song.id,
         title: song.title,
         author: song.author,
@@ -95,41 +112,47 @@ class Search {
         categories: song.categories,
         ranking: song.ranking,
       };
-  
-      const generatedSongHTML = templates.singleSong(songsObject); 
-      playlistWrapper.insertAdjacentHTML('beforeend', generatedSongHTML);
-  
-      /*const containerOfAudio = document.getElementById(song.id);
-      const audioElement = thisSearch.createAudioElement(song);
-      containerOfAudio.appendChild(audioElement);*/
-
-      //console.log(containerOfAudio);
       
-      thisSearch.initGreenPlayer();
-    
+      thisSearch.songsHTML = templates.singleSong(thisSearch.songsData); 
+     
+
+      thisSearch.songsHTML = thisSearch.songsHTML.replaceAll('play-song', 'search-song');
+      playlistWrapper.innerHTML += thisSearch.songsHTML; 
+
+
+      console.log(playlistWrapper.innerHTML)
+
+      const containerOfSong = document.querySelector(select.containerOf.search_song);
+      
+
+      const audioElement = thisSearch.createAudioElement(song);
+      containerOfSong.appendChild(audioElement);
+  
+      console.log('containerofaudio',containerOfSong);
+      console.log(audioElement);
     }
+
+    //thisSearch.initGreenPlayer();
+
   }
 
 
   render() {
+
     const generatedHTML = templates.searchPage();
     const searchContainer = document.querySelector(select.containerOf.search);
 
     searchContainer.innerHTML+= generatedHTML;
 
-
-    // console.log('HTML', generatedHTML);
   }
 
   initGreenPlayer(){
     // eslint-disable-next-line no-undef
     GreenAudioPlayer.init({
-      selector: '.play-song', 
+      selector: '.search-song', 
       stopOthersOnPlay: true,
-      
     });
   }
-
 
 }
 

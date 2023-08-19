@@ -16,6 +16,7 @@ export const select = {
     subscribe: '.subscribe',
     playlist: '.playlist-wrapper',
     song: '.play-song',
+    search_song: '.search-song',
     buttonSearch: '.btn',
     searchPlaylist: '.search-playlist-wrapper',
     discoverPlaylist: '.discover-playlist-wrapper',

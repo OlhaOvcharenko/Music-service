@@ -56,7 +56,7 @@ class Discover {
     discoverContainer.innerHTML+= generatedHTML;
     
     
-    console.log('HTML', generatedHTML);
+    //console.log('HTML', generatedHTML);
   }
     
 }
