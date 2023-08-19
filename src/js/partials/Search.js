@@ -107,6 +107,7 @@ class Search {
           //console.log(audioElement);
         }
       }
+      thisSearch.initGreenPlayer();
     });
   }
 
