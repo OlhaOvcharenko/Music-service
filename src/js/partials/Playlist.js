@@ -30,20 +30,26 @@ class Playlist {
     // for every category (song)...
     for (const song of thisPlaylist.songs) {
 
+      const filenameParts = song.filename.replace('.mp3', '').replace('-','').split('_');;
+      const reversedParts = filenameParts.reverse();
+      const fullName = reversedParts[1] + ' ' + reversedParts[0];
+
+      
+
+      //console.log(reversedParts, 'fullname',fullName);
+
       thisPlaylist.songsData = {
         id: song.id,
         title: song.title,
-        author: song.author,
+        author: fullName,
         filename:`${song.filename}`,
         categories: song.categories,
         ranking: song.ranking,
       };
       //console.log(thisPlaylist.songsData);
-
+        
       thisPlaylist.songsHTML = templates.singleSong(thisPlaylist.songsData);
       //console.log(thisPlaylist.songsHTML);
-    
-    
       playlistContainer.innerHTML += thisPlaylist.songsHTML;
 
       //console.log(playlistContainer.innerHTML);
@@ -53,16 +59,17 @@ class Playlist {
       containerOfAudio.appendChild(audioElement);
 
     }
+    thisPlaylist.initGreenPlayer();
   } 
 
   
-  /*initGreenPlayer(){
+  initGreenPlayer(){
     // eslint-disable-next-line no-undef
     GreenAudioPlayer.init({
       selector: '.play-song', 
       stopOthersOnPlay: true,
     });
-  }*/
+  }
 
 }
 

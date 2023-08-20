@@ -75,33 +75,45 @@ class Search {
       event.preventDefault(); // Prevent form submission
       const inputString = input.value.toLowerCase();
 
-      const playlistWrapper = document.querySelector(select.containerOf.searchPlaylist);
-      playlistWrapper.innerHTML = '';
-      console.log(playlistWrapper);
+      const playlistContainer = document.querySelector(select.containerOf.searchPlaylist);
+      playlistContainer.innerHTML = '';
+      console.log(playlistContainer);
+
+
       
       for (const song of thisSearch.songs) {
-
+        const filenameParts = song.filename.replace('.mp3', '').replace('-','').split('_');;
+        const reversedParts = filenameParts.reverse();
+        const fullName = `${reversedParts[1]} ${reversedParts[0]}`;
+        
         thisSearch.songsData = {
           id: song.id,
           title: song.title,
-          author: song.author,
-          filename:`songs/${song.filename}`,
+          author: fullName,
+          filename:`${song.filename}`,
           categories: song.categories,
           ranking: song.ranking,
         };
 
-        const matchedSongs = (song.title.toLowerCase().includes(inputString)) & (song.categories.includes(selectedCategory) || selectedCategory == undefined || selectedCategory.includes('clean'));
+        const titleMatch = song.title.toLowerCase().includes(inputString);
+        const authorMatch = fullName.toLowerCase().includes(inputString);
         
+        const matchedSongs = (titleMatch || authorMatch) & (song.categories.includes(selectedCategory) || selectedCategory == undefined || selectedCategory.includes('clean')); 
+
+        console.log('title',song.title)
+        console.log('list',matchedSongs);
+
         if(matchedSongs == true){
           thisSearch.songsHTML = templates.singleSong(thisSearch.songsData); 
           thisSearch.songsHTML = thisSearch.songsHTML.replaceAll('play-song', 'search-song');
-          playlistWrapper.innerHTML += thisSearch.songsHTML; 
-          console.log(playlistWrapper.innerHTML);
+          playlistContainer.innerHTML += thisSearch.songsHTML; 
+          //console.log(playlistWrapper.innerHTML);
           const containerOfSong = document.querySelector(select.containerOf.search_song);
           const audioElement = thisSearch.createAudioElement(song);
           containerOfSong.appendChild(audioElement);
       
-          console.log('containerofaudio',containerOfSong);
+          //console.log('containerofaudio',containerOfSong);
+          //console.log(audioElement);',containerOfSong);
           //console.log(audioElement);
         }
       }

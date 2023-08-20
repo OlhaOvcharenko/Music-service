@@ -17,6 +17,7 @@ export const select = {
     playlist: '.playlist-wrapper',
     song: '.play-song',
     search_song: '.search-song',
+    random_song: '.random-song',
     buttonSearch: '.btn',
     searchPlaylist: '.search-playlist-wrapper',
     discoverPlaylist: '.discover-playlist-wrapper',

@@ -10,7 +10,6 @@ class Home {
     thisHome.render();
   
     thisHome.playlistInstance = new Playlist(thisHome.songs);
-    thisHome.initGreenPlayer();
   }
 
   render() {
@@ -23,14 +22,6 @@ class Home {
     //console.log('HTML', generatedHTML);
   }
 
-
-  initGreenPlayer(){
-    // eslint-disable-next-line no-undef
-    GreenAudioPlayer.init({
-      selector: '.play-song', 
-      stopOthersOnPlay: true,
-    });
-  }
 }
 
 
