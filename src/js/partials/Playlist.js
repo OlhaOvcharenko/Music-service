@@ -30,7 +30,7 @@ class Playlist {
     // for every category (song)...
     for (const song of thisPlaylist.songs) {
 
-      const filenameParts = song.filename.replace('.mp3', '').replace('-','').split('_');;
+      const filenameParts = song.filename.replace('.mp3', '').replace('-','').split('_');
       const reversedParts = filenameParts.reverse();
       const fullName = reversedParts[1] + ' ' + reversedParts[0];
 
