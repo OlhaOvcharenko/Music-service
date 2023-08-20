@@ -2,28 +2,9 @@ import {select, classNames} from './settings.js';
 import Home from './partials/Home.js';
 import Search from './partials/Search.js';
 import Discover from './partials/Discover.js';
+import Join from './partials/Join.js';
 
 const app = {
-
-  
-  /*initHome: function() {
-
-    const thisApp = this;
-
-    // Get the home container and the corresponding data
-    thisApp.homeContainer = document.querySelector(select.containerOf.home);
-    thisApp.home = new Home(thisApp.homeContainer);
-    
-  },*/
-
-  /* initSearch: function() {
-
-    const thisApp = this;
-
-    thisApp.searchContainer = document.querySelector(select.containerOf.search);
-    thisApp.search = new Search(thisApp.searchContainer);
-    
-  },*/
 
   initPages: function() {
     const thisApp = this;
@@ -109,7 +90,7 @@ const app = {
         new Home(thisApp.songs);
         new Search(thisApp.songs);
         new Discover(thisApp.songs);
-        
+        new Join(thisApp.songs);
         
         thisApp.initPages();
         //console.log('thisHome.data', JSON.stringify(thisHome.data.songs));

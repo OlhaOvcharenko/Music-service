@@ -33,6 +33,7 @@ class Playlist {
       const filenameParts = song.filename.replace('.mp3', '').replace('-','').split('_');
       const reversedParts = filenameParts.reverse();
       const fullName = reversedParts[1] + ' ' + reversedParts[0];
+      const uppercaseFullName = fullName.toUpperCase();
 
       
 
@@ -41,7 +42,7 @@ class Playlist {
       thisPlaylist.songsData = {
         id: song.id,
         title: song.title,
-        author: fullName,
+        author: uppercaseFullName,
         filename:`${song.filename}`,
         categories: song.categories,
         ranking: song.ranking,
