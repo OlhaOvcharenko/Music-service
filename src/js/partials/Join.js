@@ -1,6 +1,6 @@
 class Join {
   constructor() {
-    const thisPage = this;
+    //const thisPage = this;
   }
 }
   

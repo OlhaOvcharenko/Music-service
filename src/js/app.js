@@ -5,7 +5,7 @@ import Discover from './partials/Discover.js';
 import Join from './partials/Join.js';
 
 const app = {
-
+  
   initPages: function() {
     const thisApp = this;
 
@@ -64,15 +64,6 @@ const app = {
       );
     }
   },
-
-  /*initPlaylist(){
-    const thisApp = this;
-    // console.log('thisApp.data:', thisApp.data);
-    for (let song in thisApp.data.allSongs) {
-      new Home(thisApp.data.allSongs[song]);
-    }
-
-  },*/
 
   initData: function() {
     const thisApp = this;

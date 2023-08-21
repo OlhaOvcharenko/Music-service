@@ -94,7 +94,7 @@ class Search {
         const titleMatch = song.title.toLowerCase().includes(inputString);
         const authorMatch = fullName.toLowerCase().includes(inputString);
         
-        thisSearch.matchedSongs = (titleMatch || authorMatch) & (song.categories.includes(selectedCategory) || selectedCategory == undefined || selectedCategory.includes('clean')); 
+        thisSearch.matchedSongs = (titleMatch || authorMatch) && (song.categories.includes(selectedCategory) || selectedCategory == undefined || selectedCategory.includes('clean')); 
 
         console.log('title',song.title);
         //console.log('list',matchedSongs);
@@ -106,61 +106,21 @@ class Search {
           thisSearch.songsHTML = thisSearch.songsHTML.replaceAll('play-song', 'search-song');
           playlistContainer.innerHTML += thisSearch.songsHTML; 
 
-          const containerOfSong = document.getElementById(song.id);
+          const containerOfSong = document.querySelector('.search-song'+ song.id);
 
-          const audioElement = thisSearch.createAudioElement(song);
-          containerOfSong.appendChild(audioElement);
+          thisSearch.audioElement = thisSearch.createAudioElement(song);
+          playlistContainer.appendChild(thisSearch.audioElement);
       
-          console.log('containerofaudio',containerOfSong);
+          console.log('containerofaudio',thisSearch.containerOfSong);
           //console.log(playlistWrapper.innerHTML);
           //console.log(audioElement);',containerOfSong);
-          //console.log(audioElement);
+          //console.log(audioElement);  
           
         }
       }
       thisSearch.initGreenPlayer();
     });
   }
-
-  /*updatePlaylist() {
-    const thisSearch = this;
-    const playlistWrapper = document.querySelector(select.containerOf.searchPlaylist);
-    //playlistWrapper.innerHTML = ''; // Clear existing playlist
-
-    console.log(playlistWrapper);
-  
-    for (const song of thisSearch.filteredSongs) {
-      thisSearch.songsData = {
-        id: song.id,
-        title: song.title,
-        author: song.author,
-        filename:`songs/${song.filename}`,
-        categories: song.categories,
-        ranking: song.ranking,
-      };
-      
-      thisSearch.songsHTML = templates.singleSong(thisSearch.songsData); 
-     
-
-      thisSearch.songsHTML = thisSearch.songsHTML.replaceAll('play-song', 'search-song');
-      playlistWrapper.innerHTML += thisSearch.songsHTML; 
-
-
-      console.log(playlistWrapper.innerHTML)
-
-      const containerOfSong = document.querySelector(select.containerOf.search_song);
-      
-
-      const audioElement = thisSearch.createAudioElement(song);
-      containerOfSong.appendChild(audioElement);
-  
-      //console.log('containerofaudio',containerOfSong);
-      //console.log(audioElement);
-    }
-
-    //thisSearch.initGreenPlayer();
-
-  }*/
 
 
   render() {
@@ -169,6 +129,12 @@ class Search {
     const searchContainer = document.querySelector(select.containerOf.search);
 
     searchContainer.innerHTML+= generatedHTML;
+
+    const allElements = document.querySelectorAll('#upc'); // Use querySelectorAll to select all elements with ID 'upc'
+  
+    allElements.forEach(element => {
+      element.textContent = element.textContent.toUpperCase(); // Convert text content to uppercase
+    });
 
   }
 

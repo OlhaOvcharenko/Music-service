@@ -71,6 +71,12 @@ class Discover {
     const discoverContainer = document.querySelector(select.containerOf.discover);
     
     discoverContainer.innerHTML+= generatedHTML;
+
+    const allElements = document.querySelectorAll('#upc'); // Use querySelectorAll to select all elements with ID 'upc'
+  
+    allElements.forEach(element => {
+      element.textContent = element.textContent.toUpperCase(); // Convert text content to uppercase
+    });
   
     //console.log('HTML', generatedHTML);
   }
