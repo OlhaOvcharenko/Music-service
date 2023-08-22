@@ -153,8 +153,11 @@
 .home-footer {
   text-align: center;
 }
-.list_of_categories{
+
+.list_of_categories a{
   font-weight: 400;
+  color: $color-light;
+  text-decoration: none;
 }
 
 .list_of_categories .active {

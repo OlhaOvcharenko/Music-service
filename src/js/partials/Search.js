@@ -6,9 +6,10 @@ class Search {
 
     thisSearch.songs = songs;
     thisSearch.categoryList = [];
+
     thisSearch.render();
     thisSearch.getCategory();
-    thisSearch.filteringSongs();
+    thisSearch.filteringSongs(songs);
   
   }
 
@@ -54,7 +55,7 @@ class Search {
 
   }
 
-  filteringSongs(){
+  filteringSongs(songs){
     const thisSearch = this;
     const button = document.querySelector('.btn');
     const input = document.querySelector(select.containerOf.input);
@@ -73,17 +74,19 @@ class Search {
 
       const playlistContainer = document.querySelector(select.containerOf.searchPlaylist);
       playlistContainer.innerHTML = '';
-      console.log(playlistContainer);
-    
-
       
-      for (const song of thisSearch.songs) {
+      console.log(playlistContainer);
+      
+      for (const song of songs) {
         const filenameParts = song.filename.replace('.mp3', '').replace('-','').split('_');
         const reversedParts = filenameParts.reverse();
         const fullName = `${reversedParts[1]} ${reversedParts[0]}`;
 
-        thisSearch.songsData = {
-          id: song.id,
+        const searchedSong = 'searched-song' + '-' + song.id;
+        console.log(searchedSong);
+
+        const songHTMLData= {
+          id: searchedSong,
           title: song.title,
           author: fullName,
           filename:`${song.filename}`,
@@ -91,30 +94,26 @@ class Search {
           ranking: song.ranking,
         };
 
+        console.log(songHTMLData);
+        
+
         const titleMatch = song.title.toLowerCase().includes(inputString);
         const authorMatch = fullName.toLowerCase().includes(inputString);
         
         thisSearch.matchedSongs = (titleMatch || authorMatch) && (song.categories.includes(selectedCategory) || selectedCategory == undefined || selectedCategory.includes('clean')); 
 
-        console.log('title',song.title);
-        //console.log('list',matchedSongs);
-
-
         if(thisSearch.matchedSongs == true){
          
-          thisSearch.songsHTML = templates.singleSong(thisSearch.songsData); 
-          thisSearch.songsHTML = thisSearch.songsHTML.replaceAll('play-song', 'search-song');
-          playlistContainer.innerHTML += thisSearch.songsHTML; 
+          const songHTML = templates.singleSong(songHTMLData); 
+          playlistContainer.innerHTML += songHTML; 
 
-          const containerOfSong = document.querySelector('.search-song'+ song.id);
+          const songContainer = document.getElementById(searchedSong);
 
-          thisSearch.audioElement = thisSearch.createAudioElement(song);
-          playlistContainer.appendChild(thisSearch.audioElement);
-      
-          console.log('containerofaudio',thisSearch.containerOfSong);
-          //console.log(playlistWrapper.innerHTML);
-          //console.log(audioElement);',containerOfSong);
-          //console.log(audioElement);  
+          songContainer.classList.remove('play-song');
+          songContainer.classList.add('searched-song');
+
+          const audioElement = thisSearch.createAudioElement(song);
+          songContainer.appendChild(audioElement);
           
         }
       }
@@ -141,7 +140,7 @@ class Search {
   initGreenPlayer(){
     // eslint-disable-next-line no-undef
     GreenAudioPlayer.init({
-      selector: '.search-song', 
+      selector: '.searched-song', 
       stopOthersOnPlay: true,
     });
   }

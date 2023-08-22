@@ -18,9 +18,9 @@
         </div>
      </div>
      <div class="main-nav">
-      <a href="#home"id="upc 1">home</a>
-      <a href="#search"id="upc 2">search</a>
-      <a href="#discover"id="upc 3s">discover</a>
+      <a href="#home"id="upc">home</a>
+      <a href="#search"id="upc">search</a>
+      <a href="#discover"id="upc">discover</a>
     </div>
    </header>
 
@@ -49,7 +49,7 @@
           <div class="song-title no-spacing">
             <h3>{{author}} <span> - {{title}}</span></h3>
           </div>
-          <div class="play-song" id="{{id}}">
+          <div class="play-song" id="{{id}}" href="#song">
           </div>
           <div class="song-details no-spacing">
             <p>Categories: {{categories}}</p>
@@ -60,12 +60,18 @@
 
    </script>
 
+   <script id="template-categories-link" type="text/x-handlebars-template">
+      <h2>Categories:</h2>
+      <ul class="list_of_categories">
+        {{#each categories}}
+          <li><a href="#category"><span>{{this}}</span></a></li>
+        {{/each}}
+      </ul>
+   </script>
+
     <script id="template-homepage-widget" type="text/x-handlebars-template">
       <div class="home_content">
         <div class="all-categories">
-          <h2>Categories:</h2>
-          <ul class="list_of_categories">
-          </ul>
         </div>
         <div class="playlist-wrapper">
         </div>

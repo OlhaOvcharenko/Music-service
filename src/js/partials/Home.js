@@ -7,11 +7,11 @@ class Home {
     thisHome.songs = songs;
 
     thisHome.categoryList = [];
-   
-    console.log('allcategories', thisHome.categoryList);
+
     thisHome.render();
     thisHome.generatePlaylist(thisHome.songs);
-    thisHome.renderCategories();
+
+    thisHome.renderCategories(songs);
     thisHome.filterByCategory();
   }
 
@@ -63,29 +63,25 @@ class Home {
     thisHome.initGreenPlayer();
   } 
 
-  renderCategories(){
+  renderCategories(songs){
     const thisHome = this;
 
-    for (const song of thisHome.songs) {
+    const listOfCategories = document.querySelector('.all-categories');
+    listOfCategories.innerHTML = ''; // Clear existing options
 
+    for (const song of songs) {
       const categoriesOfSong = song.categories;
-
+  
       for (const category of categoriesOfSong) {
         if (!thisHome.categoryList.includes(category)) {
-          thisHome.categoryList.push(category); // Corrected to use "categoryList" instead of "categories"
+          thisHome.categoryList.push(category);
         }
       }
-      const listOfCategories = document.querySelector('.list_of_categories');
-      listOfCategories.innerHTML = ''; // Clear existing options
-
-      // Generate and append the list of categories to the HTML
-      for (const category of thisHome.categoryList) {
-        const categoryItem = document.createElement('li');
-        categoryItem.textContent = category;
-        listOfCategories.appendChild(categoryItem);
-      }
-
     }
+  
+      const linkHTMLData = { categories: thisHome.categoryList};
+      const linkHTML = templates.categoriesLink(linkHTMLData);
+      listOfCategories.innerHTML = linkHTML;
   }
 
   filterByCategory() {
@@ -93,21 +89,42 @@ class Home {
     const playlistContainer = document.querySelector(select.containerOf.playlist);
     const categoryList = document.querySelector('.list_of_categories');
   
+    //add event on list of categories
     categoryList.addEventListener('click', function(event) {
       event.preventDefault();
-  
+      
+      //define clicked item
       const categoryItem = event.target;
-      // Add 'active' class to the clicked category
+
+      // Add 'active' class to the clicked item
       categoryItem.classList.toggle('active');
   
-      const clickedCategory = event.target.textContent;
+      const clickedCategory = event.target.textContent.replace(',', '')
   
       playlistContainer.innerHTML = '';
   
-      thisHome.filteredSongs = thisHome.songs.filter(song =>
-        song.categories.includes(clickedCategory));
-  
-      thisHome.generatePlaylist(thisHome.filteredSongs);
+      if (thisHome.selectedCategory === clickedCategory) {
+        // Reset back to initial state if the same category is clicked again
+        thisHome.selectedCategory = null;
+        thisHome.generatePlaylist(thisHome.songs); // Display all songs
+      
+      } else {
+
+        //find previously clecked category with class active
+        const activeCategoryItem = categoryList.querySelector('.active');
+        if (activeCategoryItem) {
+          activeCategoryItem.classList.remove('active');
+        }
+
+        // Add 'active' class to the currently clicked category
+        categoryItem.classList.add('active');
+
+        // Filter songs by the clicked category
+        thisHome.selectedCategory = clickedCategory;
+        thisHome.filteredSongs = thisHome.songs.filter(song =>
+          song.categories.includes(clickedCategory));
+        thisHome.generatePlaylist(thisHome.filteredSongs);
+      }
 
     });
   }

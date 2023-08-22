@@ -6,6 +6,7 @@ export const select = {
     searchPage:'#template-search-page',
     discoverPage:'#template-discover-page',
     categories: '#search_select',
+    categoriesLink: '#template-categories-link',
   },
 
   containerOf: {
@@ -46,6 +47,7 @@ export const templates = {
   singleSong: Handlebars.compile(document.querySelector(select.templateOf.singleSong).innerHTML),
   searchPage: Handlebars.compile(document.querySelector(select.templateOf.searchPage).innerHTML),
   discoverPage: Handlebars.compile(document.querySelector(select.templateOf.discoverPage).innerHTML),
+  categoriesLink: Handlebars.compile(document.querySelector(select.templateOf.categoriesLink).innerHTML),
 };
 
 export const settings = {
