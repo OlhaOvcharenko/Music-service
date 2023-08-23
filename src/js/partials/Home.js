@@ -7,6 +7,8 @@ class Home {
     thisHome.songs = songs;
 
     thisHome.categoryList = [];
+    thisHome.filteredSongs = [];
+    console.log(thisHome.filteredSongs);
 
     thisHome.render();
     thisHome.generatePlaylist(thisHome.songs);
@@ -35,7 +37,7 @@ class Home {
       const filenameParts = song.filename.replace('.mp3', '').replace('-','').split('_');
       const reversedParts = filenameParts.reverse();
       const fullName = reversedParts[1] + ' ' + reversedParts[0];
-      const uppercaseFullName = fullName.toUpperCase(); 
+      const uppercaseFullName = fullName.toUpperCase();
 
       //console.log(reversedParts, 'fullname',fullName);
 
@@ -79,9 +81,9 @@ class Home {
       }
     }
   
-      const linkHTMLData = { categories: thisHome.categoryList};
-      const linkHTML = templates.categoriesLink(linkHTMLData);
-      listOfCategories.innerHTML = linkHTML;
+    const linkHTMLData = { categories: thisHome.categoryList};
+    const linkHTML = templates.categoriesLink(linkHTMLData);
+    listOfCategories.innerHTML = linkHTML;
   }
 
   filterByCategory() {
@@ -99,7 +101,7 @@ class Home {
       // Add 'active' class to the clicked item
       categoryItem.classList.toggle('active');
   
-      const clickedCategory = event.target.textContent.replace(',', '')
+      const clickedCategory = event.target.textContent.replace(',', '');
   
       playlistContainer.innerHTML = '';
   
@@ -136,7 +138,7 @@ class Home {
 
     homeContainer.innerHTML+= generatedHTML;
 
-    const allElements = document.querySelectorAll('#upc'); // Use querySelectorAll to select all elements with ID 'upc'
+    const allElements = document.querySelectorAll('[id^="upc-"]'); // Use querySelectorAll to select all elements with ID 'upc'
   
     allElements.forEach(element => {
       element.textContent = element.textContent.toUpperCase(); // Convert text content to uppercase

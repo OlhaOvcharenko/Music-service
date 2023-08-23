@@ -69,6 +69,7 @@ const app = {
     const thisApp = this;
 
     thisApp.songs =  {};
+    console.log(thisApp.songs);
 
     const url = '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : '') + '/' + 'songs';
     fetch(url)
@@ -77,21 +78,102 @@ const app = {
       })
       .then(function (parsedResponse) {
         thisApp.songs = parsedResponse;
-
+        console.log(parsedResponse);
+      
         new Home(thisApp.songs);
         new Search(thisApp.songs);
-        new Discover(thisApp.songs);
+        //new Discover(thisApp.songs);
         new Join(thisApp.songs);
-        
+          
         thisApp.initPages();
         //console.log('thisHome.data', JSON.stringify(thisHome.data.songs));
       });
   },
+
+  createAudioElement(song) {
+    const audioElement = document.createElement('audio');
+    audioElement.src = `songs/${song.filename}`;
+    return audioElement;
+  },
+
+  /*getData(){
+    const thisApp= this;
+
+    const filenameParts = song.filename.replace('.mp3', '').replace('-','').split('_');
+    const reversedParts = filenameParts.reverse();
+    const fullName = reversedParts[1] + ' ' + reversedParts[0];
+    const uppercaseFullName = fullName.toUpperCase(); 
+
+    const getSongsSummary = {};
+    
+    getSongsSummary.id = thisApp.id;
+    getSongsSummary.title = thisApp.title;
+    getSongsSummary.author = uppercaseFullName;
+    getSongsSummary.filename = thisApp.filename;
+    getSongsSummary.categories = thisApp.categories;
+    getSongsSummary.ranking = thisApp.ranking;
+    getSongsSummary.audioElement = createAudioElement(song);
+
+    return getSongsSummary;
+
+  },*/
+
   
+  initPopularSongs: function() {
+    const thisApp = this;
+    thisApp.discoverPageId = document.getElementById('discover');
+    const popularSongs = [];
+
+    for (const song of Object.values(thisApp.songs)) {
+      const audio = thisApp.createAudioElement(song);
+
+      audio.addEventListener('play', function(event) {
+        const clickedAudio = event.target;
+
+        if (clickedAudio) {
+          popularSongs.push(song);
+        }
+      });
+    }
+
+    thisApp.discoverPageId.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      const mostListenedCategory = thisApp.getMostListenedCategory();
+      const songsInCategory = popularSongs.filter(song => song.category === mostListenedCategory);
+
+      if (songsInCategory.length > 0) {
+        const randomSong = songsInCategory[Math.floor(Math.random() * songsInCategory.length)];
+        new Discover(randomSong);
+      } else {
+        console.log('No songs available in the most listened category.');
+      }
+    });
+  },
+
+  getMostListenedCategory: function() {
+    const thisApp = this;
+    let mostListenedCategory = '';
+    let maxCount = 0;
+
+    for (const category in thisApp.categoryCounts) {
+      if (thisApp.categoryCounts.hasOwnProperty(category)) {
+        const count = thisApp.categoryCounts[category];
+        if (count > maxCount) {
+          maxCount = count;
+          mostListenedCategory = category;
+        }
+      }
+    }
+
+    return mostListenedCategory;
+  },
+
 
   init: function() {
     const thisApp = this;
     thisApp.initData();
+    thisApp.initPopularSongs();
   },
 
 };

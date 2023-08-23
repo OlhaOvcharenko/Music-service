@@ -2,39 +2,29 @@ import {select,templates} from '../settings.js';
 
 class Discover {
 
-  constructor(songs){
+  constructor(randomSong){
     const thisDiscover = this;
   
-    thisDiscover.songs = songs;
-
     thisDiscover.render();
-    thisDiscover.randomSong(songs);
+    thisDiscover.randomSong(randomSong);
      
   }
 
   createAudioElement(song) {
     const audioElement = document.createElement('audio');
-    
     audioElement.src = `songs/${song.filename}`;
-    
     return audioElement;
-
   }
 
-
-  randomSong(songs) {
+  randomSong(randomSong) {
     const thisDiscover = this;
-    const numberOfSongs = songs.length;
-
-    const randomSong = Math.floor(Math.random() * numberOfSongs) + 1;
-
-    for (const song of thisDiscover.songs) {
-
-      const filenameParts = song.filename.replace('.mp3', '').replace('-','').split('_');
+    const playlistWrapper = document.querySelector(select.containerOf.discoverPlaylist);
+    
+    for (const song of randomSong) {
+      const filenameParts = song.filename.replace('.mp3', '').replace('-', '').split('_');
       const reversedParts = filenameParts.reverse();
       const fullName = reversedParts[1] + ' ' + reversedParts[0];
-      //console.log(reversedParts, 'fullname',fullName);
-        
+
       const templateData = {
         id: song.id,
         title: song.title,
@@ -44,41 +34,30 @@ class Discover {
         file: song.filename,
       };
 
-      if (song.id == randomSong) {
-          
-        const playlistWrapper = document.querySelector(select.containerOf.discoverPlaylist);
+      thisDiscover.songsHTML = templates.singleSong(templateData);
+      thisDiscover.songsHTML = thisDiscover.songsHTML.replaceAll('play-song', 'random-song');
+      playlistWrapper.innerHTML += thisDiscover.songsHTML;
 
-        thisDiscover.songsHTML = templates.singleSong(templateData); 
-        thisDiscover.songsHTML = thisDiscover.songsHTML.replaceAll('play-song', 'random-song');
-        playlistWrapper.innerHTML += thisDiscover.songsHTML; 
-        //console.log(playlistWrapper.innerHTML);
-          
-        const containerOfSong = document.querySelector(select.containerOf.random_song);
-          
-        const audioElement = thisDiscover.createAudioElement(song);
-        containerOfSong.appendChild(audioElement);
-      
-        //console.log('containerofaudio',containerOfSong);
-        //console.log(audioElement);
-      }
+      const containerOfSong = document.querySelector(select.containerOf.random_song);
+
+      const audioElement = thisDiscover.createAudioElement(song);
+      containerOfSong.appendChild(audioElement);
     }
-    thisDiscover.initGreenPlayer();
 
+    thisDiscover.initGreenPlayer();
   }
 
   render() {
     const generatedHTML = templates.discoverPage();
     const discoverContainer = document.querySelector(select.containerOf.discover);
-    
-    discoverContainer.innerHTML+= generatedHTML;
 
-    const allElements = document.querySelectorAll('#upc'); // Use querySelectorAll to select all elements with ID 'upc'
-  
+    discoverContainer.innerHTML += generatedHTML;
+
+    const allElements = document.querySelectorAll('[id^="upc-"]');
+
     allElements.forEach(element => {
-      element.textContent = element.textContent.toUpperCase(); // Convert text content to uppercase
+      element.textContent = element.textContent.toUpperCase();
     });
-  
-    //console.log('HTML', generatedHTML);
   }
 
   initGreenPlayer(){
