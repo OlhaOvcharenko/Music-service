@@ -5,6 +5,15 @@ import Discover from './partials/Discover.js';
 import Join from './partials/Join.js';
 
 const app = {
+
+
+  playedSongs: [],
+
+  pageInitHome: function() {
+    const thisApp = this;
+
+    thisApp.homeInstance = new Home(thisApp.songs);
+  },
   
   initPages: function() {
     const thisApp = this;
@@ -68,106 +77,77 @@ const app = {
   initData: function() {
     const thisApp = this;
 
-    thisApp.songs =  {};
-    console.log(thisApp.songs);
+    thisApp.songs = {};
+    //console.log(thisApp.songs);
 
     const url = '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : '') + '/' + 'songs';
     fetch(url)
       .then(function (rawResponse) {
         return rawResponse.json();
       })
-      .then(function (parsedResponse) {
-        thisApp.songs = parsedResponse;
-        console.log(parsedResponse);
+      .then(function (data) {
+        thisApp.songs = data;
+        //console.log(data);
       
-        new Home(thisApp.songs);
+        thisApp.pageInitHome(thisApp.songs);
+
         new Search(thisApp.songs);
-        //new Discover(thisApp.songs);
         new Join(thisApp.songs);
           
         thisApp.initPages();
-        //console.log('thisHome.data', JSON.stringify(thisHome.data.songs));
       });
   },
 
-  createAudioElement(song) {
-    const audioElement = document.createElement('audio');
-    audioElement.src = `songs/${song.filename}`;
-    return audioElement;
-  },
-
-  /*getData(){
-    const thisApp= this;
-
-    const filenameParts = song.filename.replace('.mp3', '').replace('-','').split('_');
-    const reversedParts = filenameParts.reverse();
-    const fullName = reversedParts[1] + ' ' + reversedParts[0];
-    const uppercaseFullName = fullName.toUpperCase(); 
-
-    const getSongsSummary = {};
-    
-    getSongsSummary.id = thisApp.id;
-    getSongsSummary.title = thisApp.title;
-    getSongsSummary.author = uppercaseFullName;
-    getSongsSummary.filename = thisApp.filename;
-    getSongsSummary.categories = thisApp.categories;
-    getSongsSummary.ranking = thisApp.ranking;
-    getSongsSummary.audioElement = createAudioElement(song);
-
-    return getSongsSummary;
-
-  },*/
-
-  
   initPopularSongs: function() {
     const thisApp = this;
     thisApp.discoverPageId = document.getElementById('discover');
-    const popularSongs = [];
+  
+    const audioElements = document.querySelectorAll('.play-songs');
+    const allCategories = document.querySelectorAll('.list_of_categories li a'); // Select all category links
+    const categories = Array.from(allCategories).map(categoryLink => categoryLink.textContent);
+    let favoriteCategories = {};
 
-    for (const song of Object.values(thisApp.songs)) {
-      const audio = thisApp.createAudioElement(song);
+    for(let audioElement of audioElements){
 
-      audio.addEventListener('play', function(event) {
-        const clickedAudio = event.target;
+      const playerAudio = audioElement.querySelector('audio');
 
-        if (clickedAudio) {
-          popularSongs.push(song);
+      playerAudio.addEventListener('play', function(e){
+        e.preventDefault(); 
+
+        for (let category of categories) {
+    
+          if(!favoriteCategories[category]){
+            favoriteCategories[category] = 1;
+          } else {
+            favoriteCategories[category]++;
+          }
         }
-      });
-    }
+        const favoriteCategoriesList = Object.entries(favoriteCategories).sort((a,b) => b[1]-a[1]).map(el=>el[0]); 
+        thisApp.mostPopularCategory = favoriteCategoriesList[0];
+      }
+      );}
 
     thisApp.discoverPageId.addEventListener('click', function(event) {
       event.preventDefault();
-
-      const mostListenedCategory = thisApp.getMostListenedCategory();
-      const songsInCategory = popularSongs.filter(song => song.category === mostListenedCategory);
-
-      if (songsInCategory.length > 0) {
-        const randomSong = songsInCategory[Math.floor(Math.random() * songsInCategory.length)];
-        new Discover(randomSong);
+  
+      if (thisApp.mostPopularCategory) {
+        const songsInCategory = Object.values(thisApp.songs).filter(song =>
+          song.categories.includes(thisApp.mostPopularCategory) &&
+          !app.playedSongs.includes(song.id) // Filter out played songs
+        );
+  
+        if (songsInCategory.length > 0) {
+          const randomSong = songsInCategory[Math.floor(Math.random() * songsInCategory.length)];
+          new Discover(randomSong);
+        } else {
+          console.log('No songs available in the most listened category.');
+        }
       } else {
-        console.log('No songs available in the most listened category.');
+        console.log('No most listened category found.');
       }
     });
   },
 
-  getMostListenedCategory: function() {
-    const thisApp = this;
-    let mostListenedCategory = '';
-    let maxCount = 0;
-
-    for (const category in thisApp.categoryCounts) {
-      if (thisApp.categoryCounts.hasOwnProperty(category)) {
-        const count = thisApp.categoryCounts[category];
-        if (count > maxCount) {
-          maxCount = count;
-          mostListenedCategory = category;
-        }
-      }
-    }
-
-    return mostListenedCategory;
-  },
 
 
   init: function() {

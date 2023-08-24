@@ -1,13 +1,13 @@
+
 import {select,templates} from '../settings.js';
 
 class Discover {
-
-  constructor(randomSong){
+  constructor(playedSongs) {
     const thisDiscover = this;
-  
+    thisDiscover.playedSongs = playedSongs;
+
     thisDiscover.render();
-    thisDiscover.randomSong(randomSong);
-     
+    thisDiscover.randomSong();
   }
 
   createAudioElement(song) {
@@ -16,12 +16,13 @@ class Discover {
     return audioElement;
   }
 
-  randomSong(randomSong) {
+  randomSong() {
     const thisDiscover = this;
     const playlistWrapper = document.querySelector(select.containerOf.discoverPlaylist);
-    
-    for (const song of randomSong) {
-      const filenameParts = song.filename.replace('.mp3', '').replace('-', '').split('_');
+    playlistWrapper.innerHTML = ''; // Clear previous content
+
+    for (const song of thisDiscover.playedSongs) {
+      const filenameParts = song.filename.replace('.mp3', '').replace(/-/g, '').split('_');
       const reversedParts = filenameParts.reverse();
       const fullName = reversedParts[1] + ' ' + reversedParts[0];
 
@@ -38,7 +39,7 @@ class Discover {
       thisDiscover.songsHTML = thisDiscover.songsHTML.replaceAll('play-song', 'random-song');
       playlistWrapper.innerHTML += thisDiscover.songsHTML;
 
-      const containerOfSong = document.querySelector(select.containerOf.random_song);
+      const containerOfSong = playlistWrapper.querySelector(`[data-song-id="${song.id}"]`);
 
       const audioElement = thisDiscover.createAudioElement(song);
       containerOfSong.appendChild(audioElement);
@@ -51,7 +52,7 @@ class Discover {
     const generatedHTML = templates.discoverPage();
     const discoverContainer = document.querySelector(select.containerOf.discover);
 
-    discoverContainer.innerHTML += generatedHTML;
+    discoverContainer.innerHTML = generatedHTML; // Replace existing content
 
     const allElements = document.querySelectorAll('[id^="upc-"]');
 
@@ -60,14 +61,13 @@ class Discover {
     });
   }
 
-  initGreenPlayer(){
+  initGreenPlayer() {
     // eslint-disable-next-line no-undef
     GreenAudioPlayer.init({
-      selector: '.random-song', 
+      selector: '.random-song',
       stopOthersOnPlay: true,
     });
   }
-    
 }
 
 export default Discover;

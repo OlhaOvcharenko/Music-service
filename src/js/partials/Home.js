@@ -1,19 +1,17 @@
 import {templates,select} from '../settings.js';
 
 class Home {
-  constructor(songs) {
+  constructor(allSongs)  {
     const thisHome = this;
 
-    thisHome.songs = songs;
+    thisHome.allSongs = allSongs;
 
     thisHome.categoryList = [];
-    thisHome.filteredSongs = [];
-    console.log(thisHome.filteredSongs);
-
+    //console.log(thisHome.categoryList);
     thisHome.render();
-    thisHome.generatePlaylist(thisHome.songs);
+    thisHome.generatePlaylist(thisHome.allSongs);
 
-    thisHome.renderCategories(songs);
+    thisHome.renderCategories(thisHome.allSongs);
     thisHome.filterByCategory();
   }
 
@@ -27,61 +25,54 @@ class Home {
   
   }
     
-  generatePlaylist(songs){
+  generatePlaylist(allSongs) {
     const thisHome = this;
     const playlistContainer = document.querySelector(select.containerOf.playlist);
-    //console.log(playlistContainer)
-    // for every category (song)...
-    for (const song of songs) {
-
-      const filenameParts = song.filename.replace('.mp3', '').replace('-','').split('_');
+   
+    for (const song of allSongs) {
+      
+      const filename = song.filename || '';
+      const filenameParts = filename.replace('.mp3', '').replace(/-/g, '').split('_');
       const reversedParts = filenameParts.reverse();
       const fullName = reversedParts[1] + ' ' + reversedParts[0];
       const uppercaseFullName = fullName.toUpperCase();
-
-      //console.log(reversedParts, 'fullname',fullName);
-
+  
       const songData = {
         id: song.id,
         title: song.title,
         author: uppercaseFullName,
-        filename:`${song.filename}`,
+        filename: `${song.filename}`,
         categories: song.categories,
         ranking: song.ranking,
       };
-      //console.log(thisPlaylist.songsData);
-        
+  
       const songHTML = templates.singleSong(songData);
-      //console.log(thisPlaylist.songsHTML);
       playlistContainer.innerHTML += songHTML;
-
-      //console.log(playlistContainer.innerHTML);
-
+  
       const containerOfAudio = document.getElementById(song.id);
       const audioElement = thisHome.createAudioElement(song);
       containerOfAudio.appendChild(audioElement);
-
     }
-    thisHome.initGreenPlayer();
-  } 
+    thisHome.initGreenPlayer(); // Move this line outside of the loop
+  }
 
-  renderCategories(songs){
+  renderCategories(allSongs) {
     const thisHome = this;
 
     const listOfCategories = document.querySelector('.all-categories');
     listOfCategories.innerHTML = ''; // Clear existing options
 
-    for (const song of songs) {
+    for (const song of allSongs) {
       const categoriesOfSong = song.categories;
-  
+
       for (const category of categoriesOfSong) {
         if (!thisHome.categoryList.includes(category)) {
           thisHome.categoryList.push(category);
         }
       }
     }
-  
-    const linkHTMLData = { categories: thisHome.categoryList};
+
+    const linkHTMLData = { categories: thisHome.categoryList };
     const linkHTML = templates.categoriesLink(linkHTMLData);
     listOfCategories.innerHTML = linkHTML;
   }
@@ -108,12 +99,13 @@ class Home {
       if (thisHome.selectedCategory === clickedCategory) {
         // Reset back to initial state if the same category is clicked again
         thisHome.selectedCategory = null;
-        thisHome.generatePlaylist(thisHome.songs); // Display all songs
+        thisHome.generatePlaylist(thisHome.allSongs); // Display all songs
       
       } else {
 
         //find previously clecked category with class active
         const activeCategoryItem = categoryList.querySelector('.active');
+
         if (activeCategoryItem) {
           activeCategoryItem.classList.remove('active');
         }
@@ -122,14 +114,17 @@ class Home {
         categoryItem.classList.add('active');
 
         // Filter songs by the clicked category
+        
+
         thisHome.selectedCategory = clickedCategory;
-        thisHome.filteredSongs = thisHome.songs.filter(song =>
+        thisHome.filteredSongs = thisHome.allSongs.filter(song =>
           song.categories.includes(clickedCategory));
+
         thisHome.generatePlaylist(thisHome.filteredSongs);
       }
-
     });
   }
+  
 
   render() {
 
