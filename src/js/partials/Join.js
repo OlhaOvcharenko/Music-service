@@ -12,7 +12,7 @@ class Join {
     const generatedHTML = templates.joinPage();
     const joinContainer = document.querySelector(select.containerOf.join);
 
-   joinContainer.innerHTML = generatedHTML; // Replace existing content
+    joinContainer.innerHTML = generatedHTML; // Replace existing content
 
     const allElements = document.querySelectorAll('#upc'); // Use querySelectorAll to select all elements with ID 'upc'
   

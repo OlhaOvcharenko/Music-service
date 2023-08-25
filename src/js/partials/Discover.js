@@ -6,8 +6,7 @@ class Discover {
     const thisDiscover = this;
 
     thisDiscover.playedSongs = playedSongs;
-    //console.log(thisDiscover.oftenListenedSongs);
-
+  
     thisDiscover.render();
     thisDiscover.randomSong(playedSongs);
   }
@@ -64,12 +63,11 @@ class Discover {
     const generatedHTML = templates.discoverPage();
     const discoverContainer = document.querySelector(select.containerOf.discover);
 
-    discoverContainer.innerHTML = generatedHTML; // Replace existing content
+    discoverContainer.innerHTML = generatedHTML; 
 
-    const allElements = document.querySelectorAll('#upc'); // Use querySelectorAll to select all elements with ID 'upc'
-  
+    const allElements = document.querySelectorAll('#upc'); 
     allElements.forEach(element => {
-      element.textContent = element.textContent.toUpperCase(); // Convert text content to uppercase
+      element.textContent = element.textContent.toUpperCase(); 
     });
   }
 

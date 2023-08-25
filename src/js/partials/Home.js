@@ -138,37 +138,37 @@ class Home {
     const audioPlayers = document.querySelectorAll('.playlist');
 
     for(let audioElement of audioPlayers){
-    const audio = audioElement.querySelector('audio');
+      const audio = audioElement.querySelector('audio');
 
-    audio.addEventListener('play', function(event){
-      event.preventDefault(); 
-      console.log(audio);
-      const categoriesParagraph = audioElement.querySelector('.song-details p#song-categories');
-      const categoriesText = categoriesParagraph.textContent.replace('Categories:', '').trim();
+      audio.addEventListener('play', function(event){
+        event.preventDefault(); 
+        console.log(audio);
+        const categoriesParagraph = audioElement.querySelector('.song-details p#song-categories');
+        const categoriesText = categoriesParagraph.textContent.replace('Categories:', '').trim();
 
-      if (categoriesText !== '') {
-        const categoriesArray = categoriesText.split(',').map(category => category.trim());
-        console.log(categoriesArray);
-        for (let category of categoriesArray) {
-          if (!thisHome.playedCategories[category]) {
-            thisHome.playedCategories[category] = 1;
-          } else {
-            thisHome.playedCategories[category]++;
+        if (categoriesText !== '') {
+          const categoriesArray = categoriesText.split(',').map(category => category.trim());
+          console.log(categoriesArray);
+          for (let category of categoriesArray) {
+            if (!thisHome.playedCategories[category]) {
+              thisHome.playedCategories[category] = 1;
+            } else {
+              thisHome.playedCategories[category]++;
+            }
+          }
+          const favoriteCategoriesList = Object.entries(thisHome.playedCategories).sort((a,b) => b[1]-a[1]).map(el=>el[0]); 
+          thisHome.mostPopularCategory = favoriteCategoriesList[0];
+
+          console.log(thisHome.mostPopularCategory);
+          console.log('Played Categories:', thisHome.playedCategories);
+
+          for (const song of allSongs) {
+            if (song.categories.includes(thisHome.mostPopularCategory)) {
+              thisHome.playedSongs.push(song);
+              console.log('listenedsongs', thisHome.playedSongs);
+            }
           }
         }
-        const favoriteCategoriesList = Object.entries(thisHome.playedCategories).sort((a,b) => b[1]-a[1]).map(el=>el[0]); 
-        thisHome.mostPopularCategory = favoriteCategoriesList[0];
-
-        console.log(thisHome.mostPopularCategory);
-        console.log('Played Categories:', thisHome.playedCategories);
-
-        for (const song of allSongs) {
-          if (song.categories.includes(thisHome.mostPopularCategory)) {
-            thisHome.playedSongs.push(song);
-            console.log('listenedsongs', thisHome.playedSongs);
-          }
-        }
-      }
       });
     } 
   }

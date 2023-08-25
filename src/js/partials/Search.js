@@ -15,7 +15,6 @@ class Search {
     thisSearch.render();
     thisSearch.getCategory(thisSearch.allSongs);
     thisSearch.filteringSongs(thisSearch.allSongs);
-    //thisSearch.collectPlayedSongs(thisSearch.allSongs);
   
   }
 
@@ -74,15 +73,15 @@ class Search {
     });
   
     button.addEventListener('click', function(event) {
-      event.preventDefault(); // Prevent form submission
-      const inputString = input.value.toLowerCase().trim(); // Trim the input
+      event.preventDefault(); 
+      const inputString = input.value.toLowerCase().trim();
   
       const playlistContainer = document.querySelector(select.containerOf.searchPlaylist);
 
       playlistContainer.innerHTML = '';
   
       for (const song of allSongs) {
-        const filenameParts = song.filename.replace('.mp3', '').replace(/-/g, '').split('_'); // Replace all '-' occurrences
+        const filenameParts = song.filename.replace('.mp3', '').replace(/-/g, '').split('_');
         const reversedParts = filenameParts.reverse();
         const fullName = `${reversedParts[1]} ${reversedParts[0]}`;
   
@@ -128,37 +127,37 @@ class Search {
     const audioPlayers = document.querySelectorAll('.playlist');
 
     for(let audioElement of audioPlayers){
-    const audio = audioElement.querySelector('audio');
+      const audio = audioElement.querySelector('audio');
 
-    audio.addEventListener('play', function(event){
-      event.preventDefault(); 
-      console.log(audio);
-      const categoriesParagraph = audioElement.querySelector('.song-details p#song-categories');
-      const categoriesText = categoriesParagraph.textContent.replace('Categories:', '').trim();
+      audio.addEventListener('play', function(event){
+        event.preventDefault(); 
+        console.log(audio);
+        const categoriesParagraph = audioElement.querySelector('.song-details p#song-categories');
+        const categoriesText = categoriesParagraph.textContent.replace('Categories:', '').trim();
 
-      if (categoriesText !== '') {
-        const categoriesArray = categoriesText.split(',').map(category => category.trim());
-        console.log(categoriesArray);
-        for (let category of categoriesArray) {
-          if (!thisSearch.playedCategories[category]) {
-            thisSearch.playedCategories[category] = 1;
-          } else {
-            thisSearch.playedCategories[category]++;
+        if (categoriesText !== '') {
+          const categoriesArray = categoriesText.split(',').map(category => category.trim());
+          console.log(categoriesArray);
+          for (let category of categoriesArray) {
+            if (!thisSearch.playedCategories[category]) {
+              thisSearch.playedCategories[category] = 1;
+            } else {
+              thisSearch.playedCategories[category]++;
+            }
+          }
+          const favoriteCategoriesList = Object.entries(thisSearch.playedCategories).sort((a,b) => b[1]-a[1]).map(el=>el[0]); 
+          thisSearch.mostPopularCategory = favoriteCategoriesList[0];
+
+          console.log(thisSearch.mostPopularCategory);
+          console.log('Played Categories:', thisSearch.playedCategories);
+
+          for (const song of allSongs) {
+            if (song.categories.includes(thisSearch.mostPopularCategory)) {
+              thisSearch.playedSongs.push(song);
+              console.log('listenedsongs', thisSearch.playedSongs);
+            }
           }
         }
-        const favoriteCategoriesList = Object.entries(thisSearch.playedCategories).sort((a,b) => b[1]-a[1]).map(el=>el[0]); 
-        thisSearch.mostPopularCategory = favoriteCategoriesList[0];
-
-        console.log(thisSearch.mostPopularCategory);
-        console.log('Played Categories:', thisSearch.playedCategories);
-
-        for (const song of allSongs) {
-          if (song.categories.includes(thisSearch.mostPopularCategory)) {
-            thisSearch.playedSongs.push(song);
-            console.log('listenedsongs', thisSearch.playedSongs);
-          }
-        }
-      }
       });
     } 
   }

@@ -67,15 +67,15 @@ const app = {
       });
     }
 
-    const buttonJoinHome = document.querySelector('.btn-join-home');
+    const buttonJoin = document.querySelector('.button');
 
-    if (buttonJoinHome) {
-      buttonJoinHome.addEventListener('click', function(event) {
+    if (buttonJoin) {
+      buttonJoin.addEventListener('click', function(event) {
         event.preventDefault();
 
         const clickedElement = event.currentTarget;
         event.preventDefault();
-        //console.log('clickedElement', clickedElement);
+        console.log('clickedElement', clickedElement);
 
         // get page ID from href attr.
         const id = clickedElement.getAttribute('href').replace('#', '');
@@ -104,13 +104,16 @@ const app = {
         link.getAttribute('href') == '#' + pageId
       );
     }
+    if (pageId === 'join') {
+      // Initialize the Join instance here
+      thisApp.joinInstance = new Join(thisApp.songs);
+    }
   },
 
   initData: function() {
     const thisApp = this;
 
     thisApp.songs = {};
-    //console.log(thisApp.songs);
 
     const url = '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : '') + '/' + 'songs';
     fetch(url)
@@ -119,12 +122,10 @@ const app = {
       })
       .then(function (data) {
         thisApp.songs = data;
-        //console.log(data);
-      
+
         new Home (thisApp.songs, thisApp.playedSongs);
         new Search(thisApp.songs, thisApp.playedSongs);
-        new Join(thisApp.songs);
-      
+
         thisApp.initPages();
 
        
