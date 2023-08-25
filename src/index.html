@@ -27,17 +27,19 @@
 
     <div id="pages">
       <section id="home">
-        <div class="home-wrapper container"></div>
+        <div class="home-container"></div>
       </section>
       <section id="search">
-        <div class="search-wrapper container">
+        <div class="search-container">
         </div>
       </section>
       <section id="discover">
-        <div class="discover-wrapper container">
+        <div class="discover-container">
         </div>
       </section>
-      <section id="Join">
+      <section id="join">
+        <div class="join-container">
+        </div>
       </section>
     </div>
 
@@ -51,7 +53,7 @@
           <div class="play-song" id="{{id}}" href="#song">
           </div>
           <div class="song-details no-spacing">
-            <p>Categories: {{categories}}</p>
+            <p id="song-categories">Categories: {{categories}}</p>
             <p>#{{ranking}} in the ranking</p>
           </div>
         </div>
@@ -131,6 +133,14 @@
       </div>
       <div class="footer">All rights reserved</div>
     </script>
+
+    <script id="template-join-page" type="text/x-handlebars-template">
+      <div class="titles">
+        <h2 class="section-title" id="upc">join now</h2>
+      </div>
+      <div class="footer">All rights reserved</div>
+    </script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
     <script src="vendor/green-audio-player.min.js"></script>

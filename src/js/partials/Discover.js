@@ -4,10 +4,12 @@ import {select,templates} from '../settings.js';
 class Discover {
   constructor(playedSongs) {
     const thisDiscover = this;
+
     thisDiscover.playedSongs = playedSongs;
+    //console.log(thisDiscover.oftenListenedSongs);
 
     thisDiscover.render();
-    thisDiscover.randomSong();
+    thisDiscover.randomSong(playedSongs);
   }
 
   createAudioElement(song) {
@@ -16,32 +18,42 @@ class Discover {
     return audioElement;
   }
 
-  randomSong() {
+  randomSong(playedSongs) {
     const thisDiscover = this;
+
+    const numberOfSongs = playedSongs.length;
+    console.log(numberOfSongs);
+
+    const randomIndex = Math.floor(Math.random() * playedSongs.length);
+    const randomSong = playedSongs[randomIndex];
+
+    //console.log(randomSong);
+
     const playlistWrapper = document.querySelector(select.containerOf.discoverPlaylist);
     playlistWrapper.innerHTML = ''; // Clear previous content
 
-    for (const song of thisDiscover.playedSongs) {
-      const filenameParts = song.filename.replace('.mp3', '').replace(/-/g, '').split('_');
+    if(randomSong) {
+      const filenameParts = randomSong.filename.replace('.mp3', '').replace(/-/g, '').split('_');
       const reversedParts = filenameParts.reverse();
       const fullName = reversedParts[1] + ' ' + reversedParts[0];
+      const discoverSong = 'discover-song' + '-' + randomSong.id;
 
       const templateData = {
-        id: song.id,
-        title: song.title,
+        id: discoverSong,
+        title: randomSong.title,
         author: fullName,
-        categories: song.categories,
-        ranking: song.ranking,
-        file: song.filename,
+        categories: randomSong.categories,
+        ranking: randomSong.ranking,
+        file: randomSong.filename,
       };
 
       thisDiscover.songsHTML = templates.singleSong(templateData);
       thisDiscover.songsHTML = thisDiscover.songsHTML.replaceAll('play-song', 'random-song');
       playlistWrapper.innerHTML += thisDiscover.songsHTML;
 
-      const containerOfSong = playlistWrapper.querySelector(`[data-song-id="${song.id}"]`);
 
-      const audioElement = thisDiscover.createAudioElement(song);
+      const containerOfSong = document.getElementById(discoverSong);
+      const audioElement = thisDiscover.createAudioElement(randomSong);
       containerOfSong.appendChild(audioElement);
     }
 
@@ -54,10 +66,10 @@ class Discover {
 
     discoverContainer.innerHTML = generatedHTML; // Replace existing content
 
-    const allElements = document.querySelectorAll('[id^="upc-"]');
-
+    const allElements = document.querySelectorAll('#upc'); // Use querySelectorAll to select all elements with ID 'upc'
+  
     allElements.forEach(element => {
-      element.textContent = element.textContent.toUpperCase();
+      element.textContent = element.textContent.toUpperCase(); // Convert text content to uppercase
     });
   }
 
