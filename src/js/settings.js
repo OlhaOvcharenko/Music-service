@@ -55,6 +55,6 @@ export const templates = {
 export const settings = {
 
   db: {
-    songs: 'songs',
+    url: '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : ''),
   }
 };
