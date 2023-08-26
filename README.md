@@ -1,1 +1,1 @@
-https://music-service-6.olhaovcharenko.repl.co/#/search
+https://music-service-8.olhaovcharenko.repl.co/#/home
