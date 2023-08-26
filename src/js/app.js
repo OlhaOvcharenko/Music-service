@@ -1,4 +1,4 @@
-import {select, classNames} from './settings.js';
+import {select, classNames,settings} from './settings.js';
 import Home from './partials/Home.js';
 import Search from './partials/Search.js';
 import Discover from './partials/Discover.js';
@@ -115,7 +115,8 @@ const app = {
 
     thisApp.songs = {};
 
-    const url = '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : '') + '/' + 'songs';
+    const url = settings.db.url + '/' + settings.db.products;
+
     fetch(url)
       .then(function (rawResponse) {
         return rawResponse.json();
