@@ -115,7 +115,7 @@ const app = {
 
     thisApp.songs = {};
 
-    const url = settings.db.url + '/' + settings.db.products;
+    const url = settings.db.url + '/' + settings.db.songs;
 
     fetch(url)
       .then(function (rawResponse) {
