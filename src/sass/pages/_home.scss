@@ -7,14 +7,20 @@
   margin: 0;
 }
 
+.song-title h3 {
+  letter-spacing: 2px;
+  font-size: 20px;
+}
+
 .song-details {
   display: flex;
-
+ 
   p {
     text-align: center;
     padding-right: 70px;
     padding-left: 15px;
   }
+
 }
 
 .green-audio-player .slider .gap-progress .pin {
@@ -152,6 +158,8 @@
 
 .home-footer {
   text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .list_of_categories a{
@@ -166,4 +174,206 @@
 
 .hidden{
   display: none;
+}
+
+@media(max-width: 1080px) {
+
+  .subscribe-content {
+    padding-top: 50px;
+    a{
+      margin-top: 250px;
+      width: 200px;
+      height: 100px;
+    }
+  }
+  
+  .btn-join {
+    width: 200px;
+    height: 90px;
+    margin: 18px auto 0 auto;
+    padding: 8px;
+    border-radius: 7px;
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .subscribe-box {
+    margin-left: 150px;
+  }
+
+  .subscribe-img {
+    position: relative;
+    max-width: 550px;
+    height: 350px;
+    margin-left: 150px;
+  }
+
+  .singer {
+    position: absolute;
+    padding-top: 150px;
+    z-index: 2;
+  }
+  
+  .singer h1 {
+    padding-left: 0;
+    letter-spacing: 10px;
+    font-size: 50px;
+    font-weight: $font-black; /* You need to define $font-black somewhere */
+  }
+  
+  .singer .surname {
+    padding-left: 30px;
+  }
+  
+  .details h2 {
+    letter-spacing: 2px;
+    font-size: 25px;
+  }
+  
+  .details h3 {
+    letter-spacing: 10px;
+    font-size: 20px;
+  }
+
+  .details{
+    margin-right: 15%;
+  }
+}
+
+@media (max-width: 767px){
+  .subscribe-title h2{
+    font-size: 40px;
+  }
+
+  .subscribe-content a{
+    margin-top: 220px;
+    width: 200px;
+    height: 100px;
+  }
+  
+  .btn-join {
+    width: 200px;
+    height: 90px;
+    margin: 18px auto 0 auto;
+    padding: 8px;
+    border-radius: 7px;
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+
+  .subscribe-box {
+    margin-left: 100px;
+  }
+
+  .subscribe-img {
+    position: relative;
+    max-width: 550px;
+    height: 350px;
+    margin-left: 100px;
+  }
+
+  .singer {
+    position: absolute;
+    padding-top: 180px;
+    padding-right: 30px;
+    z-index: 2;
+  }
+  
+  .singer h1 {
+    padding-left: 0;
+    letter-spacing: 10px;
+    font-size: 40px;
+    //font-weight: $font-black; /* You need to define $font-black somewhere */
+  }
+  
+  .singer .surname {
+    padding-left: 10px;
+  }
+  
+  .details {
+    margin-right: 15px;
+  }
+  
+  .details h2 {
+    letter-spacing: 2px;
+    font-size: 25px;
+  }
+  
+  .details h3 {
+    letter-spacing: 5px;
+    font-size: 20px;
+  }
+
+}
+@media (max-width: 547px){
+  .subscribe-title h2{
+    font-size: 30px;
+  }
+  .subscribe-content a{
+    margin-top: 220px;
+    width: 170px;
+    height: 90px;
+  }
+  
+  .btn-join {
+    width: 150px;
+    height: 75px;
+    margin: 18px auto 0 auto;
+    padding: 8px;
+    border-radius: 7px;
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+
+
+  .subscribe-content {
+    padding: 0 10px;
+  }
+
+  .subscribe-img {
+    position: relative;
+    max-width: 450px;
+    height: 250px;
+    margin-left: 40px;
+  }
+  
+  .subscribe-img img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .singer {
+    position: absolute;
+    padding-top: 120px;
+    z-index: 2;
+  }
+  
+  .singer h1 {
+    padding-left: 0;
+    letter-spacing: 10px;
+    font-size: 30px;
+    //font-weight: $font-black; /* You need to define $font-black somewhere */
+  }
+  
+  .singer .surname {
+    padding-left: 10px;
+  }
+  
+  .details {
+    text-align: right;
+    margin-right: 0;
+    padding-top: 60px;
+  }
+  
+  .details h2 {
+    letter-spacing: 2px;
+    font-size: 25px;
+  }
+  
+  .details h3 {
+    letter-spacing: 10px;
+    font-size: 20px;
+  }
+  
 }

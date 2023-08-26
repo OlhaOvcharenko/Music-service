@@ -35,12 +35,13 @@ class Discover {
       const filenameParts = randomSong.filename.replace('.mp3', '').replace(/-/g, '').split('_');
       const reversedParts = filenameParts.reverse();
       const fullName = reversedParts[1] + ' ' + reversedParts[0];
+      const uppercaseFullName = fullName.toUpperCase();
       const discoverSong = 'discover-song' + '-' + randomSong.id;
 
       const templateData = {
         id: discoverSong,
         title: randomSong.title,
-        author: fullName,
+        author: uppercaseFullName,
         categories: randomSong.categories,
         ranking: randomSong.ranking,
         file: randomSong.filename,
