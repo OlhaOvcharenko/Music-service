@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.html",
+    "type": "module",
     "scripts": {
         "init-project": "npm install && npm-run-all init:*",
         "init:dirs": "mkdirp dist src/sass src/css src/vendor src/images src/js src/db",
@@ -34,7 +35,7 @@
         "autoprefixer": "^10.2.4",
         "browser-sync": "^2.26.3",
         "copyfiles": "^2.1.0",
-        "eslint": "^5.14.1",
+        "eslint": "^5.16.0",
         "globstar": "^1.0.0",
         "html-validate": "^2.8.0",
         "mkdirp": "^0.5.1",
