@@ -47,17 +47,6 @@ const app = {
         //console.log(clickedElement,'clickedElement');
         // run thisApp.activatePage() with ID
 
-        if (idFromHash === 'discover') {
-          // Check if Discover should be initialized here based on user interactions
-          if (thisApp.playedSongs.length > 0) {
-            thisApp.discoverInstance = new Discover(thisApp.playedSongs);
-          } else {
-            alert('No songs have been discovered yet.');
-          }
-        }
-
-
-
         thisApp.activatePage(id);
         //console.log(id, 'id');
         // change URL hash, add / to prevent scrolling to #
@@ -86,6 +75,18 @@ const app = {
         thisApp.activatePage(id);
         // Trigger navigation to the Join page
         window.location.hash = '#/join';
+      });
+    }
+
+    const discoverLink = document.getElementById('upc-discover');
+
+    if(discoverLink){
+      discoverLink.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        console.log(discoverLink);
+
+        thisApp.discoverInstance = new Discover(thisApp.playedSongs);
       });
     }
 
@@ -126,10 +127,10 @@ const app = {
 
         new Home (thisApp.songs, thisApp.playedSongs);
         new Search(thisApp.songs, thisApp.playedSongs);
+        
+        //thisApp.discoverInstance = new Discover(thisApp.playedSongs);
 
         thisApp.initPages();
-
-       
 
       });
   },
