@@ -24,7 +24,7 @@ class Discover {
     const randomIndex = Math.floor(Math.random() * playedSongs.length);
     const randomSong = playedSongs[randomIndex];
     if( playedSongs.length > 0){
-    //console.log(randomSong);
+      console.log(randomSong);
 
       const playlistWrapper = document.querySelector(select.containerOf.discoverPlaylist);
       playlistWrapper.innerHTML = ''; // Clear previous content

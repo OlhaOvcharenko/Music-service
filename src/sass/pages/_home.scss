@@ -141,7 +141,7 @@
 
 .details {
   text-align: right;
-  margin-right: 25%;
+  margin-right: 20%;
   padding-top: 60px;
 
   h2 {
@@ -306,20 +306,21 @@
   }
 
 }
-@media (max-width: 547px){
+@media (min-width: 319px) and (max-width: 547px){
   .subscribe-title h2{
     font-size: 30px;
+    letter-spacing: 2px;
   }
 
   .subscribe-content a{
     margin-top: 220px;
-    width: 170px;
-    height: 90px;
+    width: 150px;
+    height: 70px;
   }
   
   .btn-join {
-    width: 150px;
-    height: 75px;
+    width: 130px;
+    height: 55px;
     margin: 18px auto 0 auto;
     padding: 8px;
     border-radius: 7px;
@@ -327,16 +328,20 @@
     letter-spacing: 2px;
   }
 
+  .subscribe-box {
+    margin-left: 150px;
+  }
 
   .subscribe-content {
-    padding: 0 10px;
+    padding: 0 15px;
   }
 
   .subscribe-img {
     position: relative;
-    max-width: 450px;
+    width: 200px;
     height: 250px;
-    margin-left: 40px;
+    //margin-left: 0px;
+    margin-top: 50px;
   }
   
   .subscribe-img img {
@@ -346,19 +351,19 @@
   
   .singer {
     position: absolute;
-    padding-top: 120px;
+    padding-top: 170px;
     z-index: 2;
   }
   
   .singer h1 {
     padding-left: 0;
-    letter-spacing: 10px;
+    letter-spacing: 5px;
     font-size: 30px;
     //font-weight: $font-black; /* You need to define $font-black somewhere */
   }
   
   .singer .surname {
-    padding-left: 10px;
+    padding-left: 30px;
   }
   
   .details {
@@ -369,12 +374,35 @@
   
   .details h2 {
     letter-spacing: 2px;
-    font-size: 25px;
+    font-size: 20px;
   }
   
   .details h3 {
     letter-spacing: 10px;
-    font-size: 20px;
+    font-size: 15px;
   }
   
+  .green-audio-player {
+    width: 300px;
+    min-width: 100px;
+  }
+
+  .all-categories {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  .list_of_categories{
+   justify-content: center;
+   margin: 0;
+   padding: 0;
+   text-align: center;
+  }
+  h2 {
+    text-align: center;
+  }
+  .song-title h3 {
+    font-size: 16px;
+  }
 }
